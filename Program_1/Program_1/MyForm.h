@@ -104,13 +104,22 @@ namespace Program_1 {
 		}
 	private: System::Windows::Forms::Button^  buttonStart;
 	private: System::Windows::Forms::PictureBox^  pictureBoxCountdown;
+	private: System::Windows::Forms::Timer^  timerDateTime;
+	private: System::Windows::Forms::Label^  labelDateTime;
+	private: System::Windows::Forms::Label^  labelWelcomeTitle;
+	private: System::Windows::Forms::Label^  labelWelcomeDescription;
+	private: System::Windows::Forms::Button^  buttonContinue;
+	private: System::Windows::Forms::Button^  buttonExit;
+
+
+	private: System::ComponentModel::IContainer^  components;
 	protected:
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -119,21 +128,30 @@ namespace Program_1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->buttonStart = (gcnew System::Windows::Forms::Button());
 			this->pictureBoxCountdown = (gcnew System::Windows::Forms::PictureBox());
+			this->timerDateTime = (gcnew System::Windows::Forms::Timer(this->components));
+			this->labelDateTime = (gcnew System::Windows::Forms::Label());
+			this->labelWelcomeTitle = (gcnew System::Windows::Forms::Label());
+			this->labelWelcomeDescription = (gcnew System::Windows::Forms::Label());
+			this->buttonContinue = (gcnew System::Windows::Forms::Button());
+			this->buttonExit = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCountdown))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// buttonStart
 			// 
-			this->buttonStart->BackColor = System::Drawing::Color::Transparent;
+			this->buttonStart->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
 			this->buttonStart->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->buttonStart->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->buttonStart->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonStart->Location = System::Drawing::Point(431, 679);
+			this->buttonStart->ForeColor = System::Drawing::Color::White;
+			this->buttonStart->Location = System::Drawing::Point(458, 556);
 			this->buttonStart->Name = L"buttonStart";
-			this->buttonStart->Size = System::Drawing::Size(75, 23);
+			this->buttonStart->Size = System::Drawing::Size(93, 30);
 			this->buttonStart->TabIndex = 0;
 			this->buttonStart->Text = L"Start";
 			this->buttonStart->UseVisualStyleBackColor = false;
@@ -149,7 +167,90 @@ namespace Program_1 {
 			this->pictureBoxCountdown->TabIndex = 1;
 			this->pictureBoxCountdown->TabStop = false;
 			this->pictureBoxCountdown->Visible = false;
-			this->pictureBoxCountdown->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::pictureBoxCountdown_Paint);
+			// 
+			// timerDateTime
+			// 
+			this->timerDateTime->Enabled = true;
+			this->timerDateTime->Interval = 1000;
+			this->timerDateTime->Tick += gcnew System::EventHandler(this, &MyForm::timerDateTime_Tick);
+			// 
+			// labelDateTime
+			// 
+			this->labelDateTime->Anchor = System::Windows::Forms::AnchorStyles::Right;
+			this->labelDateTime->AutoSize = true;
+			this->labelDateTime->BackColor = System::Drawing::Color::Transparent;
+			this->labelDateTime->Font = (gcnew System::Drawing::Font(L"Times New Roman", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelDateTime->ForeColor = System::Drawing::Color::White;
+			this->labelDateTime->Location = System::Drawing::Point(382, 630);
+			this->labelDateTime->Name = L"labelDateTime";
+			this->labelDateTime->Size = System::Drawing::Size(245, 46);
+			this->labelDateTime->TabIndex = 2;
+			this->labelDateTime->Text = L"The current time and date is:\r\n10/16/2014 12:20:57 PM";
+			this->labelDateTime->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->labelDateTime->Visible = false;
+			// 
+			// labelWelcomeTitle
+			// 
+			this->labelWelcomeTitle->AutoSize = true;
+			this->labelWelcomeTitle->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->labelWelcomeTitle->Font = (gcnew System::Drawing::Font(L"Times New Roman", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelWelcomeTitle->ForeColor = System::Drawing::Color::White;
+			this->labelWelcomeTitle->Location = System::Drawing::Point(258, 4);
+			this->labelWelcomeTitle->Name = L"labelWelcomeTitle";
+			this->labelWelcomeTitle->Size = System::Drawing::Size(493, 54);
+			this->labelWelcomeTitle->TabIndex = 3;
+			this->labelWelcomeTitle->Text = L"Welcome to Laithe\'s Intergalactic Internet Service\r\n                 On Laithe\'s "
+				L"Intergalactic Travel\r\n";
+			this->labelWelcomeTitle->Visible = false;
+			// 
+			// labelWelcomeDescription
+			// 
+			this->labelWelcomeDescription->AutoSize = true;
+			this->labelWelcomeDescription->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->labelWelcomeDescription->Font = (gcnew System::Drawing::Font(L"Times New Roman", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelWelcomeDescription->ForeColor = System::Drawing::Color::White;
+			this->labelWelcomeDescription->Location = System::Drawing::Point(211, 71);
+			this->labelWelcomeDescription->MaximumSize = System::Drawing::Size(600, 0);
+			this->labelWelcomeDescription->Name = L"labelWelcomeDescription";
+			this->labelWelcomeDescription->Size = System::Drawing::Size(587, 135);
+			this->labelWelcomeDescription->TabIndex = 4;
+			this->labelWelcomeDescription->Text = resources->GetString(L"labelWelcomeDescription.Text");
+			this->labelWelcomeDescription->Visible = false;
+			// 
+			// buttonContinue
+			// 
+			this->buttonContinue->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->buttonContinue->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->buttonContinue->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonContinue->ForeColor = System::Drawing::Color::White;
+			this->buttonContinue->Location = System::Drawing::Point(365, 352);
+			this->buttonContinue->Name = L"buttonContinue";
+			this->buttonContinue->Size = System::Drawing::Size(93, 30);
+			this->buttonContinue->TabIndex = 5;
+			this->buttonContinue->Text = L"Continue";
+			this->buttonContinue->UseVisualStyleBackColor = false;
+			// 
+			// buttonExit
+			// 
+			this->buttonExit->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->buttonExit->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->buttonExit->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonExit->ForeColor = System::Drawing::Color::White;
+			this->buttonExit->Location = System::Drawing::Point(481, 352);
+			this->buttonExit->Name = L"buttonExit";
+			this->buttonExit->Size = System::Drawing::Size(93, 30);
+			this->buttonExit->TabIndex = 6;
+			this->buttonExit->Text = L"Exit";
+			this->buttonExit->UseVisualStyleBackColor = false;
 			// 
 			// MyForm
 			// 
@@ -159,12 +260,18 @@ namespace Program_1 {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1008, 730);
+			this->Controls->Add(this->labelWelcomeDescription);
+			this->Controls->Add(this->buttonExit);
+			this->Controls->Add(this->buttonContinue);
 			this->Controls->Add(this->pictureBoxCountdown);
+			this->Controls->Add(this->labelWelcomeTitle);
+			this->Controls->Add(this->labelDateTime);
 			this->Controls->Add(this->buttonStart);
 			this->Name = L"MyForm";
 			this->Text = L"Program 1";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCountdown))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -211,7 +318,7 @@ namespace Program_1 {
 
 		**************************************************************/
 
-		void clear(Graphics^ canvas)
+		void clear(Graphics^ &canvas)
 		{
 			////////////////////////////////////////////////////////////////////
 			//
@@ -1880,6 +1987,29 @@ namespace Program_1 {
 			drawEdge(triangleLG, canvas);
 		}
 
+		void welcome()
+		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+			Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+
+			////////////////////////////////////////////////////////////////////
+			
+			pictureBoxCountdown->Visible = true;
+			countdown(canvas);
+			pictureBoxCountdown->Visible = false;
+
+			labelWelcomeTitle->Visible = true;
+			labelWelcomeDescription->Visible = true;
+			labelDateTime->Visible = true;
+
+
+		}
+
 		///////////////////////////////////////////////////////////////
 
 		/*//////////////////////////////////////////////////////////////
@@ -1890,29 +2020,23 @@ namespace Program_1 {
 
 	private: System::Void buttonStart_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
-		//countdown();
-
-				 static int first = 0;
-
-
-					 Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
-
-					 /* Brush^ greenBrush = gcnew Drawing::SolidBrush(Drawing::Color::Green);
-
-					 canvas->FillRectangle(greenBrush, 0, 0, 20, 10);*/
-
-					 pictureBoxCountdown->Visible = true;
-
-					 countdown(canvas);
-
-
+		buttonStart->Visible = false;
+		welcome();
+		
 	}
 
-	private: System::Void pictureBoxCountdown_Paint(Object^ sender, System::Windows::Forms::PaintEventArgs^ e)
+	/*private: System::Void pictureBoxCountdown_Paint(Object^ sender, System::Windows::Forms::PaintEventArgs^ e)
 	{
 				 
 
 				 
+	}*/
+	private: System::Void timerDateTime_Tick(System::Object^  sender, System::EventArgs^  e) 
+	{
+
+		labelDateTime->Text = "The current date and time:\n" +
+			DateTime::Now.ToString();
 	}
-	};
+
+};
 }
