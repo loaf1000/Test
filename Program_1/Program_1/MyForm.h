@@ -228,9 +228,10 @@ namespace Program_1 {
 			this->labelWelcomeDescription->Location = System::Drawing::Point(211, 71);
 			this->labelWelcomeDescription->MaximumSize = System::Drawing::Size(600, 0);
 			this->labelWelcomeDescription->Name = L"labelWelcomeDescription";
-			this->labelWelcomeDescription->Size = System::Drawing::Size(587, 135);
+			this->labelWelcomeDescription->Size = System::Drawing::Size(581, 135);
 			this->labelWelcomeDescription->TabIndex = 4;
 			this->labelWelcomeDescription->Text = resources->GetString(L"labelWelcomeDescription.Text");
+			this->labelWelcomeDescription->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->labelWelcomeDescription->Visible = false;
 			// 
 			// buttonContinue
@@ -265,6 +266,7 @@ namespace Program_1 {
 			this->buttonExit->Text = L"Exit";
 			this->buttonExit->UseVisualStyleBackColor = false;
 			this->buttonExit->Visible = false;
+			this->buttonExit->Click += gcnew System::EventHandler(this, &MyForm::buttonExit_Click);
 			// 
 			// labelAccountNumber
 			// 
@@ -363,7 +365,6 @@ namespace Program_1 {
 
 		String^ name;
 
-
 		///////////////////////////////////////////////////////////////
 
 
@@ -404,6 +405,25 @@ namespace Program_1 {
 			//canvas->Clear(Color::Transparent);
 
 			canvas->DrawImage(spaceImage, 0, 0, 1008, 730); // 1024-16 = 1008, 768-730 = 38 may be useful for stretching images manually
+
+		}
+
+		void convertTime(String^ &stime, int &hour, int &minute)
+		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+			int time;
+
+			////////////////////////////////////////////////////////////////////
+
+			Int32::TryParse(stime, time);
+
+			hour = time / 100;
+			minute = time % 100;
 
 		}
 
@@ -482,6 +502,27 @@ namespace Program_1 {
 			clear(canvas);
 		}
 
+		void displayNameStartTimeLabels()
+		{
+			labelWelcomeDescription->Text = "Please enter your name and your start time. \n Start time format: hhmm (0-23 hour) (0-59 minute)";
+
+
+			labelAccountNumber->Visible = true;
+			labelAccountNumber->Text = "Name";
+
+			textBoxAccountNumber->Text = "Please enter your name.";
+			textBoxAccountNumber->Visible = true;
+
+			labelPassword->Visible = true;
+			labelPassword->Text = "Start time";
+
+			textBoxPassword->Visible = true;
+			textBoxPassword->PasswordChar::set(0);
+			textBoxPassword->Text = "Please enter your start time.";
+
+			buttonContinue->Text = "Submit";
+		}
+
 		void drawEdge(array<Point>^ coords, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -536,7 +577,7 @@ namespace Program_1 {
 
 		void echoAccountInfo(String^ accountNumber, String^ password)
 		{
-			labelWelcomeDescription->Text = "Thank you for entering the account#:" + accountNumber
+			labelWelcomeDescription->Text = "Thank you for entering the account #: " + accountNumber
 											+ " and the password: " + password + ".";
 		}
 
@@ -2134,9 +2175,13 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 	//
 	////////////////////////////////////////////////////////////////////
 
+	int hour, minute;
+
 	static int programProgress = 0;
+
 	String^ accountNumber = "-1";
 	String^ password = "Default Password";
+	String^ startTime;
 
 	////////////////////////////////////////////////////////////////////
 
@@ -2149,6 +2194,7 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 			labelPassword->Visible = true;
 			textBoxAccountNumber->Visible = true;
 			textBoxPassword->Visible = true;
+			labelWelcomeTitle->Visible = false;
 
 			buttonContinue->Text = "Login";
 
@@ -2159,12 +2205,39 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 			getPassword(password);
 
 			echoAccountInfo(accountNumber, password);
+
+			labelAccountNumber->Visible = false;
+			labelPassword->Visible = false;
+			textBoxAccountNumber->Visible = false;
+			textBoxPassword->Visible = false;
+			buttonContinue->Text = "Continue";
+
 			programProgress = 2;
 			break;
 		case 2:
+			displayNameStartTimeLabels();
+
+			programProgress = 3;
+			break;
+
+		case 3:
+			name = textBoxAccountNumber->Text;
+			startTime = textBoxPassword->Text;
+
+			convertTime(startTime, hour, minute);
+
+			labelWelcomeDescription->Text = "Thank you " + name + " for entering " + startTime + ". "
+						+ "Enjoy your internet experience starting at " + hour + ":" + minute + ".";
+
+			break;
+		case 4:
 
 			break;
 	}
+}
+private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+	Close();
 }
 };
 }
