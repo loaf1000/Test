@@ -110,6 +110,13 @@ namespace Program_1 {
 	private: System::Windows::Forms::Label^  labelWelcomeDescription;
 	private: System::Windows::Forms::Button^  buttonContinue;
 	private: System::Windows::Forms::Button^  buttonExit;
+	private: System::Windows::Forms::Label^  labelAccountNumber;
+	private: System::Windows::Forms::Label^  labelPassword;
+
+	private: System::Windows::Forms::TextBox^  textBoxAccountNumber;
+
+	private: System::Windows::Forms::TextBox^  textBoxPassword;
+
 
 
 	private: System::ComponentModel::IContainer^  components;
@@ -138,6 +145,10 @@ namespace Program_1 {
 			this->labelWelcomeDescription = (gcnew System::Windows::Forms::Label());
 			this->buttonContinue = (gcnew System::Windows::Forms::Button());
 			this->buttonExit = (gcnew System::Windows::Forms::Button());
+			this->labelAccountNumber = (gcnew System::Windows::Forms::Label());
+			this->labelPassword = (gcnew System::Windows::Forms::Label());
+			this->textBoxAccountNumber = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxPassword = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCountdown))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -230,12 +241,14 @@ namespace Program_1 {
 			this->buttonContinue->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->buttonContinue->ForeColor = System::Drawing::Color::White;
-			this->buttonContinue->Location = System::Drawing::Point(365, 352);
+			this->buttonContinue->Location = System::Drawing::Point(324, 352);
 			this->buttonContinue->Name = L"buttonContinue";
 			this->buttonContinue->Size = System::Drawing::Size(93, 30);
 			this->buttonContinue->TabIndex = 5;
 			this->buttonContinue->Text = L"Continue";
 			this->buttonContinue->UseVisualStyleBackColor = false;
+			this->buttonContinue->Visible = false;
+			this->buttonContinue->Click += gcnew System::EventHandler(this, &MyForm::buttonContinue_Click);
 			// 
 			// buttonExit
 			// 
@@ -245,12 +258,64 @@ namespace Program_1 {
 			this->buttonExit->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->buttonExit->ForeColor = System::Drawing::Color::White;
-			this->buttonExit->Location = System::Drawing::Point(481, 352);
+			this->buttonExit->Location = System::Drawing::Point(564, 352);
 			this->buttonExit->Name = L"buttonExit";
 			this->buttonExit->Size = System::Drawing::Size(93, 30);
 			this->buttonExit->TabIndex = 6;
 			this->buttonExit->Text = L"Exit";
 			this->buttonExit->UseVisualStyleBackColor = false;
+			this->buttonExit->Visible = false;
+			// 
+			// labelAccountNumber
+			// 
+			this->labelAccountNumber->AutoSize = true;
+			this->labelAccountNumber->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->labelAccountNumber->Font = (gcnew System::Drawing::Font(L"Times New Roman", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelAccountNumber->ForeColor = System::Drawing::Color::White;
+			this->labelAccountNumber->Location = System::Drawing::Point(331, 243);
+			this->labelAccountNumber->Name = L"labelAccountNumber";
+			this->labelAccountNumber->Size = System::Drawing::Size(112, 27);
+			this->labelAccountNumber->TabIndex = 7;
+			this->labelAccountNumber->Text = L"Account #";
+			this->labelAccountNumber->Visible = false;
+			// 
+			// labelPassword
+			// 
+			this->labelPassword->AutoSize = true;
+			this->labelPassword->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->labelPassword->Font = (gcnew System::Drawing::Font(L"Times New Roman", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelPassword->ForeColor = System::Drawing::Color::White;
+			this->labelPassword->Location = System::Drawing::Point(331, 282);
+			this->labelPassword->Name = L"labelPassword";
+			this->labelPassword->Size = System::Drawing::Size(104, 27);
+			this->labelPassword->TabIndex = 8;
+			this->labelPassword->Text = L"Password";
+			this->labelPassword->Visible = false;
+			// 
+			// textBoxAccountNumber
+			// 
+			this->textBoxAccountNumber->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxAccountNumber->Location = System::Drawing::Point(481, 243);
+			this->textBoxAccountNumber->Name = L"textBoxAccountNumber";
+			this->textBoxAccountNumber->Size = System::Drawing::Size(176, 26);
+			this->textBoxAccountNumber->TabIndex = 9;
+			this->textBoxAccountNumber->Visible = false;
+			// 
+			// textBoxPassword
+			// 
+			this->textBoxPassword->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxPassword->Location = System::Drawing::Point(481, 282);
+			this->textBoxPassword->Name = L"textBoxPassword";
+			this->textBoxPassword->PasswordChar = '*';
+			this->textBoxPassword->Size = System::Drawing::Size(176, 26);
+			this->textBoxPassword->TabIndex = 10;
+			this->textBoxPassword->Visible = false;
 			// 
 			// MyForm
 			// 
@@ -260,6 +325,10 @@ namespace Program_1 {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1008, 730);
+			this->Controls->Add(this->textBoxPassword);
+			this->Controls->Add(this->textBoxAccountNumber);
+			this->Controls->Add(this->labelPassword);
+			this->Controls->Add(this->labelAccountNumber);
 			this->Controls->Add(this->labelWelcomeDescription);
 			this->Controls->Add(this->buttonExit);
 			this->Controls->Add(this->buttonContinue);
@@ -463,6 +532,22 @@ namespace Program_1 {
 			///////////////////////////////////////////////////////////////
 
 			canvas->FillRectangle(drawBrush, col, row, length, width);
+		}
+
+		void echoAccountInfo(String^ accountNumber, String^ password)
+		{
+			labelWelcomeDescription->Text = "Thank you for entering the account#:" + accountNumber
+											+ " and the password: " + password + ".";
+		}
+
+		String^ getAccountNumber()
+		{
+			return textBoxAccountNumber->Text;
+		}
+
+		void getPassword(String^ &password)
+		{
+			password = textBoxPassword->Text;
 		}
 
 		void laithesDraw0(int col, int row, Graphics^ &canvas)
@@ -2000,12 +2085,15 @@ namespace Program_1 {
 			////////////////////////////////////////////////////////////////////
 			
 			pictureBoxCountdown->Visible = true;
-			countdown(canvas);
+			//countdown(canvas);
 			pictureBoxCountdown->Visible = false;
 
 			labelWelcomeTitle->Visible = true;
 			labelWelcomeDescription->Visible = true;
 			labelDateTime->Visible = true;
+
+			buttonContinue->Visible = true;
+			buttonExit->Visible = true;
 
 
 		}
@@ -2038,5 +2126,45 @@ namespace Program_1 {
 			DateTime::Now.ToString();
 	}
 
+private: System::Void buttonContinue_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+	////////////////////////////////////////////////////////////////////
+	//
+	//				DECLARE LOCAL VARIABLES/OBJECTS
+	//
+	////////////////////////////////////////////////////////////////////
+
+	static int programProgress = 0;
+	String^ accountNumber = "-1";
+	String^ password = "Default Password";
+
+	////////////////////////////////////////////////////////////////////
+
+	switch (programProgress)
+	{
+		case 0:
+			labelWelcomeDescription->Text = "Please enter your account number and password.";
+
+			labelAccountNumber->Visible = true;
+			labelPassword->Visible = true;
+			textBoxAccountNumber->Visible = true;
+			textBoxPassword->Visible = true;
+
+			buttonContinue->Text = "Login";
+
+			programProgress = 1;
+			break;
+		case 1:
+			accountNumber = getAccountNumber();
+			getPassword(password);
+
+			echoAccountInfo(accountNumber, password);
+			programProgress = 2;
+			break;
+		case 2:
+
+			break;
+	}
+}
 };
 }
