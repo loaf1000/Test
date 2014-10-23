@@ -116,6 +116,11 @@ namespace Program_1 {
 	private: System::Windows::Forms::TextBox^  textBoxAccountNumber;
 
 	private: System::Windows::Forms::TextBox^  textBoxPassword;
+	private: System::Windows::Forms::PictureBox^  pictureBoxDrawnClock;
+	private: System::Windows::Forms::PictureBox^  pictureBoxImageClock;
+
+
+
 
 
 
@@ -149,7 +154,11 @@ namespace Program_1 {
 			this->labelPassword = (gcnew System::Windows::Forms::Label());
 			this->textBoxAccountNumber = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPassword = (gcnew System::Windows::Forms::TextBox());
+			this->pictureBoxDrawnClock = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBoxImageClock = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCountdown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawnClock))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxImageClock))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// buttonStart
@@ -319,6 +328,24 @@ namespace Program_1 {
 			this->textBoxPassword->TabIndex = 10;
 			this->textBoxPassword->Visible = false;
 			// 
+			// pictureBoxDrawnClock
+			// 
+			this->pictureBoxDrawnClock->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBoxDrawnClock->Location = System::Drawing::Point(12, 407);
+			this->pictureBoxDrawnClock->Name = L"pictureBoxDrawnClock";
+			this->pictureBoxDrawnClock->Size = System::Drawing::Size(300, 300);
+			this->pictureBoxDrawnClock->TabIndex = 11;
+			this->pictureBoxDrawnClock->TabStop = false;
+			// 
+			// pictureBoxImageClock
+			// 
+			this->pictureBoxImageClock->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBoxImageClock->Location = System::Drawing::Point(696, 407);
+			this->pictureBoxImageClock->Name = L"pictureBoxImageClock";
+			this->pictureBoxImageClock->Size = System::Drawing::Size(300, 300);
+			this->pictureBoxImageClock->TabIndex = 12;
+			this->pictureBoxImageClock->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -327,6 +354,8 @@ namespace Program_1 {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1008, 730);
+			this->Controls->Add(this->pictureBoxImageClock);
+			this->Controls->Add(this->pictureBoxDrawnClock);
 			this->Controls->Add(this->textBoxPassword);
 			this->Controls->Add(this->textBoxAccountNumber);
 			this->Controls->Add(this->labelPassword);
@@ -341,6 +370,8 @@ namespace Program_1 {
 			this->Name = L"MyForm";
 			this->Text = L"Program 1";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCountdown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawnClock))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxImageClock))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -375,6 +406,37 @@ namespace Program_1 {
 
 		//////////////////////////////////////////////////////////////*/
 
+		void calcHourCoords(int hour, int minute, double &xHour, double &yHour)
+		{
+			double pi = Math::PI;
+
+			double hAngle = ((hour * 30) + (minute * 0.5)) * (pi / 180);
+
+			xHour = 150 + (Math::Sin(hAngle) * 60);
+			yHour = 150 - (Math::Cos(hAngle) * 60);
+
+		}
+
+		void calcMinuteCoords(int minute, double &xMinute, double &yMinute)
+		{
+			const double &pi = Math::PI;
+
+			double mAngle = (6 * minute) * (pi / 180);
+
+			xMinute = 150 + (Math::Sin(mAngle) * 100);
+			yMinute = 150 - (Math::Cos(mAngle) * 100);
+		}
+
+		void calcSecondCoords(int second, double &xSecond, double &ySecond)
+		{
+			const double &pi = Math::PI;
+
+			double sAngle = (6 * second) * (pi / 180);
+
+			xSecond = 150 + (Math::Sin(sAngle) * 110);
+			ySecond = 150 - (Math::Cos(sAngle) * 110);
+		}
+
 		/**************************************************************
 
 		NAME:			clear
@@ -408,7 +470,7 @@ namespace Program_1 {
 
 		}
 
-		void convertTime(String^ &stime, int &hour, int &minute)
+		void convertTime(String^ &stime, int &hour, int &minute, int &second)
 		{
 			////////////////////////////////////////////////////////////////////
 			//
@@ -416,14 +478,18 @@ namespace Program_1 {
 			//
 			////////////////////////////////////////////////////////////////////
 
-			int time;
+			int time, remainder;
 
 			////////////////////////////////////////////////////////////////////
 
 			Int32::TryParse(stime, time);
 
-			hour = time / 100;
-			minute = time % 100;
+			hour = time / 10000;
+			remainder = time % 10000;
+			minute = remainder / 100;
+			second = remainder % 100;
+
+			
 
 		}
 
@@ -504,7 +570,7 @@ namespace Program_1 {
 
 		void displayNameStartTimeLabels()
 		{
-			labelWelcomeDescription->Text = "Please enter your name and your start time. \n Start time format: hhmm (0-23 hour) (0-59 minute)";
+			labelWelcomeDescription->Text = "Please enter your name and your start time. \n Start time format: hhmmss \n (0-23 hour) (0-59 minute) (0-59 second)";
 
 
 			labelAccountNumber->Visible = true;
@@ -521,6 +587,66 @@ namespace Program_1 {
 			textBoxPassword->Text = "Please enter your start time.";
 
 			buttonContinue->Text = "Submit";
+		}
+
+		void drawClock(int &hour, int &minute, int &second)
+		{
+			// local variables
+
+			double xHour = 0, yHour = 0, xMinute = 0, yMinute = 0, xSecond = 0, ySecond = 0;
+
+			Brush^ drawBrushBlack = gcnew Drawing::SolidBrush(System::Drawing::Color::Black);
+			Brush^ drawBrushWhite = gcnew Drawing::SolidBrush(System::Drawing::Color::White);
+			Brush^ drawBrushGreen = gcnew Drawing::SolidBrush(System::Drawing::Color::Green);
+
+			Pen^ drawPenBlack = gcnew Drawing::Pen(System::Drawing::Color::Black, 4); //bug found if width is odd hour 00 will align, but not hour 12
+			Pen^ drawPenPurple = gcnew Drawing::Pen(System::Drawing::Color::Purple, 4);
+			Pen^ drawPenRed = gcnew Drawing::Pen(System::Drawing::Color::Red, 2);
+			Pen^ drawPenOrange = gcnew Drawing::Pen(System::Drawing::Color::Orange, 6);
+			Drawing::Font^ drawFont = gcnew Drawing::Font("Times New Roman", 14);
+
+			Graphics^  canvas = pictureBoxDrawnClock->CreateGraphics();
+
+			//
+
+			canvas->FillEllipse(drawBrushBlack, 0, 0, 300, 300);
+			canvas->FillEllipse(drawBrushWhite, 5, 5, 290, 290);
+
+			//canvas->FillEllipse(drawBrushWhite, 230, 230, 30, 30);
+
+			/*for (int d = 0; d < 360; d += 6) TODO Draw clock ticks for each minute and draw 1,2,4,5,7,8,10,11 on the clock
+			{
+				static int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+
+
+				canvas->DrawLine(drawPen, x1 + 245, y1 - 10, x2 + 245, y2 - 20);
+				x1 += 6;
+				y1 -= 6;
+			}*/
+
+			canvas->DrawLine(drawPenBlack, 150, 5, 150, 295); //vertical line used for spacing of numbers on the drawn clock
+			canvas->DrawLine(drawPenBlack, 5, 150, 295, 150); //horizontal line
+
+			// Draws the numbers of the clock
+
+			canvas->DrawString("12", drawFont, drawBrushBlack, 137, 6);
+			canvas->DrawString("3", drawFont, drawBrushBlack, 280, 139);
+			canvas->DrawString("6", drawFont, drawBrushBlack, 142, 270);
+			canvas->DrawString("9", drawFont, drawBrushBlack, 5, 138);
+
+			calcHourCoords(hour, minute, xHour, yHour);
+
+			calcMinuteCoords(minute, xMinute, yMinute);
+
+			calcSecondCoords(second, xSecond, ySecond);
+
+			//Draws the Hour, Minute, and Second hand
+
+			canvas->DrawLine(drawPenPurple, 150, 150, xMinute, yMinute);
+			canvas->DrawLine(drawPenOrange, 150, 150, xHour, yHour);
+			canvas->DrawLine(drawPenRed, 150, 150, xSecond, ySecond);
+
+			
 		}
 
 		void drawEdge(array<Point>^ coords, Graphics^ &canvas)
@@ -566,7 +692,7 @@ namespace Program_1 {
 
 			//////////////////////////////////////////////////////////////*/
 
-			//canvas = this->CreateGraphics();
+		
 
 			Brush^ drawBrush = gcnew Drawing::SolidBrush(System::Drawing::Color::Red);
 
@@ -590,6 +716,8 @@ namespace Program_1 {
 		{
 			password = textBoxPassword->Text;
 		}
+
+		
 
 		void laithesDraw0(int col, int row, Graphics^ &canvas)
 		{
@@ -2175,9 +2303,9 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 	//
 	////////////////////////////////////////////////////////////////////
 
-	int hour, minute;
+	int hour, minute, second;
 
-	static int programProgress = 0;
+	static int programProgress = 2;
 
 	String^ accountNumber = "-1";
 	String^ password = "Default Password";
@@ -2224,10 +2352,12 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 			name = textBoxAccountNumber->Text;
 			startTime = textBoxPassword->Text;
 
-			convertTime(startTime, hour, minute);
+			convertTime(startTime, hour, minute, second);
 
 			labelWelcomeDescription->Text = "Thank you " + name + " for entering " + startTime + ". "
-						+ "Enjoy your internet experience starting at " + hour + ":" + minute + ".";
+						+ "Enjoy your internet experience starting at " + hour + ":" + minute + ":" + second + ".";
+
+			drawClock(hour, minute, second);
 
 			break;
 		case 4:
