@@ -10,10 +10,10 @@ Assignment Name		:	    	GUI Quirky Programming
 Course # and Title	:	    	CISC 192 - C++
 Class Meeting Time	:	    	MW 9:35 - 12:45
 Instructor			:	    	Professor Forman
-Hours			   	:			25
+Hours			   	:			40
 Difficulty			:	    	5
-Completion Date		:	    	October/5/2014
-Project Name		:  	    	TA1_5GGF
+Completion Date		:	    	October/26/2014
+Project Name		:  	    	Program_1
 
 ***************************************************************
 ***************************************************************
@@ -41,7 +41,7 @@ Remember the “triangle of learning”
 Thanks for assistance and inspiration from:
 
 Professor Forman, Cplusplus.com, Stackoverflow.com
-Learncpp.com Carlos
+Learncpp.com, Christian 
 
 Thanks for the opportunity to assist and inspire:
 
@@ -119,6 +119,9 @@ namespace Program_1 {
 	private: System::Windows::Forms::PictureBox^  pictureBoxDrawnClock;
 	private: System::Windows::Forms::PictureBox^  pictureBoxImageClock;
 	private: System::Windows::Forms::Timer^  timerClock;
+	private: System::Windows::Forms::Button^  buttonClockShow;
+	private: System::Windows::Forms::Button^  buttonExitClockShow;
+	private: System::Windows::Forms::Timer^  timerClockShow;
 
 
 
@@ -159,6 +162,9 @@ namespace Program_1 {
 			this->pictureBoxDrawnClock = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBoxImageClock = (gcnew System::Windows::Forms::PictureBox());
 			this->timerClock = (gcnew System::Windows::Forms::Timer(this->components));
+			this->buttonClockShow = (gcnew System::Windows::Forms::Button());
+			this->buttonExitClockShow = (gcnew System::Windows::Forms::Button());
+			this->timerClockShow = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCountdown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawnClock))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxImageClock))->BeginInit();
@@ -183,13 +189,13 @@ namespace Program_1 {
 			// pictureBoxCountdown
 			// 
 			this->pictureBoxCountdown->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBoxCountdown->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pictureBoxCountdown->Location = System::Drawing::Point(0, 0);
 			this->pictureBoxCountdown->Name = L"pictureBoxCountdown";
 			this->pictureBoxCountdown->Size = System::Drawing::Size(1008, 730);
 			this->pictureBoxCountdown->TabIndex = 1;
 			this->pictureBoxCountdown->TabStop = false;
 			this->pictureBoxCountdown->Visible = false;
+
 			// 
 			// timerDateTime
 			// 
@@ -228,6 +234,7 @@ namespace Program_1 {
 			this->labelWelcomeTitle->Text = L"Welcome to Laithe\'s Intergalactic Internet Service\r\n                 On Laithe\'s "
 				L"Intergalactic Travel\r\n";
 			this->labelWelcomeTitle->Visible = false;
+
 			// 
 			// labelWelcomeDescription
 			// 
@@ -244,6 +251,7 @@ namespace Program_1 {
 			this->labelWelcomeDescription->TabIndex = 4;
 			this->labelWelcomeDescription->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->labelWelcomeDescription->Visible = false;
+//			this->labelWelcomeDescription->TextChanged += gcnew System::EventHandler(this, &MyForm::labelWelcomeDescription_TextChanged);
 			// 
 			// buttonContinue
 			// 
@@ -253,7 +261,7 @@ namespace Program_1 {
 			this->buttonContinue->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->buttonContinue->ForeColor = System::Drawing::Color::White;
-			this->buttonContinue->Location = System::Drawing::Point(324, 352);
+			this->buttonContinue->Location = System::Drawing::Point(308, 352);
 			this->buttonContinue->Name = L"buttonContinue";
 			this->buttonContinue->Size = System::Drawing::Size(93, 30);
 			this->buttonContinue->TabIndex = 5;
@@ -270,7 +278,7 @@ namespace Program_1 {
 			this->buttonExit->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->buttonExit->ForeColor = System::Drawing::Color::White;
-			this->buttonExit->Location = System::Drawing::Point(564, 352);
+			this->buttonExit->Location = System::Drawing::Point(603, 352);
 			this->buttonExit->Name = L"buttonExit";
 			this->buttonExit->Size = System::Drawing::Size(93, 30);
 			this->buttonExit->TabIndex = 6;
@@ -338,7 +346,6 @@ namespace Program_1 {
 			this->pictureBoxDrawnClock->Size = System::Drawing::Size(300, 300);
 			this->pictureBoxDrawnClock->TabIndex = 11;
 			this->pictureBoxDrawnClock->TabStop = false;
-
 			// 
 			// pictureBoxImageClock
 			// 
@@ -354,6 +361,47 @@ namespace Program_1 {
 			this->timerClock->Interval = 1000;
 			this->timerClock->Tick += gcnew System::EventHandler(this, &MyForm::timerClock_Tick);
 			// 
+			// buttonClockShow
+			// 
+			this->buttonClockShow->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->buttonClockShow->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->buttonClockShow->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonClockShow->ForeColor = System::Drawing::Color::White;
+			this->buttonClockShow->Location = System::Drawing::Point(458, 520);
+			this->buttonClockShow->Name = L"buttonClockShow";
+			this->buttonClockShow->Size = System::Drawing::Size(93, 30);
+			this->buttonClockShow->TabIndex = 13;
+			this->buttonClockShow->Text = L"Clocks\?";
+			this->buttonClockShow->UseVisualStyleBackColor = false;
+			this->buttonClockShow->Visible = false;
+			this->buttonClockShow->Click += gcnew System::EventHandler(this, &MyForm::buttonClockShow_Click);
+			this->buttonClockShow->MouseLeave += gcnew System::EventHandler(this, &MyForm::ClockShow_MouseLeave);
+			this->buttonClockShow->MouseHover += gcnew System::EventHandler(this, &MyForm::ClockShow_MouseHover);
+			// 
+			// buttonExitClockShow
+			// 
+			this->buttonExitClockShow->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(71)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->buttonExitClockShow->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->buttonExitClockShow->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonExitClockShow->ForeColor = System::Drawing::Color::White;
+			this->buttonExitClockShow->Location = System::Drawing::Point(458, 700);
+			this->buttonExitClockShow->Name = L"buttonExitClockShow";
+			this->buttonExitClockShow->Size = System::Drawing::Size(93, 30);
+			this->buttonExitClockShow->TabIndex = 14;
+			this->buttonExitClockShow->Text = L"Exit";
+			this->buttonExitClockShow->UseVisualStyleBackColor = false;
+			this->buttonExitClockShow->Visible = false;
+			this->buttonExitClockShow->Click += gcnew System::EventHandler(this, &MyForm::buttonExitClockShow_Click);
+			// 
+			// timerClockShow
+			// 
+			this->timerClockShow->Interval = 2000;
+			this->timerClockShow->Tick += gcnew System::EventHandler(this, &MyForm::timerClockShow_Tick);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -362,6 +410,8 @@ namespace Program_1 {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1008, 730);
+			this->Controls->Add(this->buttonExitClockShow);
+			this->Controls->Add(this->buttonClockShow);
 			this->Controls->Add(this->pictureBoxImageClock);
 			this->Controls->Add(this->pictureBoxDrawnClock);
 			this->Controls->Add(this->textBoxPassword);
@@ -404,6 +454,7 @@ namespace Program_1 {
 
 		String^ name = "default name";
 
+
 		///////////////////////////////////////////////////////////////
 
 
@@ -416,9 +467,17 @@ namespace Program_1 {
 
 		void calcHourCoords(int hour, int minute, double &xHour, double &yHour)
 		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+			
 			double pi = Math::PI;
 
 			double hAngle = ((hour * 30) + (minute * 0.5)) * (pi / 180);
+
+			////////////////////////////////////////////////////////////////////
 
 			xHour = 150 + (Math::Sin(hAngle) * 60);
 			yHour = 150 - (Math::Cos(hAngle) * 60);
@@ -428,19 +487,39 @@ namespace Program_1 {
 
 		void calcMinuteCoords(int minute, double &xMinute, double &yMinute)
 		{
-			const double &pi = Math::PI;
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
 
-			double mAngle = (6 * minute) * (pi / 180);
+			
+				const double &pi = Math::PI;
+
+				double mAngle = (6 * minute) * (pi / 180);
+			
+
+			////////////////////////////////////////////////////////////////////
 
 			xMinute = 150 + (Math::Sin(mAngle) * 100);
 			yMinute = 150 - (Math::Cos(mAngle) * 100);
-		}
+		}	
 
 		void calcMinuteTick(int minute, double &xTick, double &yTick, double &x2Tick, double &y2Tick)
 		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+
 			const double &pi = Math::PI;
 
 			double mAngle = (6 * minute) * (pi / 180);
+
+
+			////////////////////////////////////////////////////////////////////
 
 			xTick = 150 + (Math::Sin(mAngle) * 130);
 			yTick = 150 - (Math::Cos(mAngle) * 130);
@@ -451,12 +530,43 @@ namespace Program_1 {
 
 		void calcSecondCoords(int second, double &xSecond, double &ySecond)
 		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+
 			const double &pi = Math::PI;
 
 			double sAngle = (6 * second) * (pi / 180);
 
+
+			////////////////////////////////////////////////////////////////////
+
 			xSecond = 150 + (Math::Sin(sAngle) * 110);
 			ySecond = 150 - (Math::Cos(sAngle) * 110);
+		}
+
+		void calcTimeRemaining(int hour, int minute, int second)
+		{
+			if (hour == 23)
+			{
+				hour = -1;
+			}
+
+
+			if (second == 0)
+			{
+				labelWelcomeDescription->Text += "\nThat will be " + (60 - minute).ToString("D2") + " minutes until "
+					+ (hour + 1).ToString("D2") + " hour.";
+			}
+
+			else
+			{
+				labelWelcomeDescription->Text += "\nThat will be " + (59 - minute).ToString("D2") + " minutes and "
+					+ (60 - second).ToString("D2") + " seconds until " + (hour + 1).ToString("D2") + " hour.";
+			}
 		}
 
 		/**************************************************************
@@ -480,7 +590,7 @@ namespace Program_1 {
 			//
 			////////////////////////////////////////////////////////////////////
 
-			Image^ spaceImage = Image::FromFile("...//Images//Hd-Wallpapers-Space-51.jpg");
+			Image^ spaceImage = Image::FromFile("...//Media/Images//Hd-Wallpapers-Space-51.jpg");
 
 			////////////////////////////////////////////////////////////////////
 
@@ -501,37 +611,26 @@ namespace Program_1 {
 			//
 			////////////////////////////////////////////////////////////////////
 
-			int time, remainder;
+			//int time, remainder;
 
 			array<String^> ^splitTime;
 			array<String^> ^separator = { ":" };
 
 			////////////////////////////////////////////////////////////////////
 
-			if (sTime->Contains(":"))
-			{
+		
 				splitTime = sTime->Split(separator, System::StringSplitOptions::RemoveEmptyEntries);
 				
 				Int32::TryParse(splitTime[0], hour);
 				Int32::TryParse(splitTime[1], minute);
 				Int32::TryParse(splitTime[2], second);
 
-			}
+				//Int32::TryParse(sTime, time);
 
-			else
-			{
-				Int32::TryParse(sTime, time);
-
-				hour = time / 10000;
-				remainder = time % 10000;
-				minute = remainder / 100;
-				second = remainder % 100;
-			}
-
-
-
-			
-
+				//hour = time / 10000;
+				//remainder = time % 10000;
+				//minute = remainder / 100;
+				//second = remainder % 100;
 		}
 
 		/**************************************************************
@@ -559,8 +658,16 @@ namespace Program_1 {
 
 		void countdown(Graphics^ &canvas)
 		{
-			// Local Variables
-			System::Media::SoundPlayer sndPlayer("..//rocket blast off SFX.wav");
+			
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+			System::Media::SoundPlayer sndPlayer("..//Media/Audio/Sound Effects/rocket blast off SFX.wav");
+
+			////////////////////////////////////////////////////////////////////
 
 
 			clear(canvas);
@@ -603,26 +710,20 @@ namespace Program_1 {
 			Threading::Thread::Sleep(1000);
 			clear(canvas);
 
+			sndPlayer.Play();
+
 			laithesDraw1(400, 100, canvas);
 			Threading::Thread::Sleep(1000);
 			clear(canvas);
 
 			laithesDraw0(400, 100, canvas);
-			sndPlayer.Play();
 			Threading::Thread::Sleep(1000);
 			clear(canvas);
 		}
 
-		void displayFormattedTime(String^ time,int &hour, int &minute, int &second)
-		{
-			
-			labelWelcomeDescription->Text = "Thank you " + name + " for entering " + time + ". "
-				+ "Enjoy your internet experience starting at " + hour + ":" + minute + ":" + second + ".";
-		}
-
 		void displayNameStartTimeLabels()
 		{
-			labelWelcomeDescription->Text = "Please enter your name and your start time. \n Start time format: hhmmss \n (0-23 hour) (0-59 minute) (0-59 second)";
+			labelWelcomeDescription->Text = "Please enter your name and your start time. \n Start time format: hh:mm:ss \n (0-23 hour) (0-59 minute) (0-59 second)";
 
 
 			labelAccountNumber->Visible = true;
@@ -636,14 +737,22 @@ namespace Program_1 {
 
 			textBoxPassword->Visible = true;
 			textBoxPassword->PasswordChar::set(0);
-			textBoxPassword->Text = "Please enter your start time.";
+			textBoxPassword->Text = "HH:MM:SS";
 
 			buttonContinue->Text = "Submit";
+
+			buttonClockShow->Visible = true;
 		}
 
 		void drawClock(int &hour, int &minute, int &second)
 		{
-			// local variables
+			
+
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
 
 			double xHour = 0, yHour = 0, xMinute = 0, yMinute = 0, xSecond = 0, ySecond = 0;
 
@@ -656,11 +765,13 @@ namespace Program_1 {
 			Pen^ drawPenPurple = gcnew Drawing::Pen(System::Drawing::Color::Purple, 4);
 			Pen^ drawPenRed = gcnew Drawing::Pen(System::Drawing::Color::Red, 2);
 			Pen^ drawPenOrange = gcnew Drawing::Pen(System::Drawing::Color::Orange, 6);
+
 			Drawing::Font^ drawFont = gcnew Drawing::Font("Times New Roman", 14);
 
 			Graphics^  canvas = pictureBoxDrawnClock->CreateGraphics();
 
-			//
+			////////////////////////////////////////////////////////////////////
+
 
 			canvas->FillEllipse(drawBrushBlack, 0, 0, 300, 300);
 			canvas->FillEllipse(drawBrushWhite, 5, 5, 290, 290);
@@ -671,10 +782,19 @@ namespace Program_1 {
 
 			for (int m = 0; m < 60; m ++) /*TODO Draw clock ticks for each minute and draw 1,2,4,5,7,8,10,11 on the clock*/
 			{
+				////////////////////////////////////////////////////////////////////
+				//
+				//				DECLARE LOCAL VARIABLES/OBJECTS
+				//
+				////////////////////////////////////////////////////////////////////
+
 				double x1, x2, y1, y2;
+
+				////////////////////////////////////////////////////////////////////
 				
 				calcMinuteTick(m, x1, y1, x2, y2);
 
+				//Draws the minute ticks creating darker ticks for the hour ticks
 				if (m % 5 == 0)
 				{
 					canvas->DrawLine(drawPenBlack, (int)x1, (int)y1, (int)x2, (int)y2);
@@ -723,6 +843,12 @@ namespace Program_1 {
 
 		void drawClockHands(int &hour, int &minute, int &second)
 		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
 			double xHour = 0, yHour = 0, xMinute = 0, yMinute = 0, xSecond = 0, ySecond = 0;
 
 			Pen^ drawPenPurple = gcnew Drawing::Pen(System::Drawing::Color::Purple, 4);
@@ -731,9 +857,9 @@ namespace Program_1 {
 
 			Graphics^  canvas = pictureBoxImageClock->CreateGraphics();
 
-			Image^ clockImage = Image::FromFile("...//Images//clock-without-arms-md.png");
+			Image^ clockImage = Image::FromFile("...//Media/Images//clock-without-arms-md.png");
 
-
+			////////////////////////////////////////////////////////////////////
 
 
 			calcHourCoords(hour, minute, xHour, yHour);
@@ -742,7 +868,7 @@ namespace Program_1 {
 
 			calcSecondCoords(second, xSecond, ySecond);
 
-			//Draws the Hour, Minute, and Second hand
+			//Draws the Clock image and the Hour, Minute, and Second hand
 
 			canvas->DrawImage(clockImage, 0, 0, 300, 300);
 
@@ -788,32 +914,39 @@ namespace Program_1 {
 
 		void drawTime(int &hour, int &minute, int &second, String^ &fontName, int &fontSize)
 		{
-			String^ time = hour + ":" + minute + ":" + second;
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
 
-			Brush^ drawBrushWhite = gcnew Drawing::SolidBrush(System::Drawing::Color::White);
+			String^ time = hour.ToString("D2") + ":" + minute.ToString("D2") + ":" + second.ToString("D2");
+
+			Brush^ drawBrushOrange = gcnew Drawing::SolidBrush(System::Drawing::Color::Orange);
 			Drawing::Font^ drawFont = gcnew Drawing::Font(fontName, fontSize);
 
 
 			Graphics^  canvas = pictureBoxCountdown->CreateGraphics();
 
+			////////////////////////////////////////////////////////////////////
+
 			clear(canvas);
 
-			canvas->DrawString(time, drawFont, drawBrushWhite, 386, 407);
+			canvas->DrawString(time, drawFont, drawBrushOrange, 410, 407);
 		}
 
 		void drawVertical(int col, int row, int length, int width, Graphics^ &canvas)
 		{
-			/*//////////////////////////////////////////////////////////////
-
-			DECLARE LOCAL VARIABLES
-
-			//////////////////////////////////////////////////////////////*/
-
-		
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
 
 			Brush^ drawBrush = gcnew Drawing::SolidBrush(System::Drawing::Color::Red);
 
-			///////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////
+
 
 			canvas->FillRectangle(drawBrush, col, row, length, width);
 		}
@@ -827,20 +960,20 @@ namespace Program_1 {
 		void farewell()
 		{
 			MessageBox::Show(
-				name + ", we hope you have enjoyed our internet service here at" + MY_NAME + "'s Intergalatic Travel Agency.",
+				name + ", we hope you have enjoyed our internet service here at " + MY_NAME + "'s Intergalatic Travel Agency.",
 				"SEE YOU SOON!" // message box caption
 				);
 			MessageBox::Show(
 				"Programmers: \t\tLaithe Marshall\n"
-				"Assignment #: \t\tTA #1.5GGF\n"
-				"Assignment Name: \t\tGUI Goofy Functions\n"
+				"Assignment #: \t\tProgram 1\n"
+				"Assignment Name: \t\tIt's About Time\n"
 				"Course # and Title: \t\tCISC 192 - C++\n"
 				"Class Meeting Time: \t\tMW 9:35 - 12:45\n"
 				"Instructor: \t\tProfessor Forman\n"
-				"Hours: \t\t\t25\n"
-				"Difficulty: \t\t\t3\n"
-				"Completion Date: \t\tOctober/5/2014\n"
-				"Project Name: \t\tTA1_5GGF\n"
+				"Hours: \t\t\t40\n"
+				"Difficulty: \t\t\t5\n"
+				"Completion Date: \t\tOctober/26/2014\n"
+				"Project Name: \t\tProgram_1\n"
 				, "ID INFORMATION" // message box caption
 				);
 
@@ -850,28 +983,63 @@ namespace Program_1 {
 				);
 
 			MessageBox::Show(
-				"\"Mystic Mountain\" Hubble Space Telescope Image\n"
-				"http://www.spacetelescope.org/static/archives/images/large/heic1007a.jpg \n\n"
-				"Rocket Blast Off Sound\n"
-				"http://www.youtube.com/watch?v=MmJ41X0B8xw \n\n"
-				"Spaceship Image\n"
-				"http://www.wallpaperup.com/uploads/wallpapers/2013/02/18/41732/b4aa40fc46eb69f8f601f74544c92b60.jpg \n\n"
+				"Music\n\n"
+				"Red Like Roses Music Box cover by ksmusicboxes\n"
+				"https ://soundcloud.com/ksmusicboxes/from-shadows-rwby-music-box\n\n"
+
+				"Forward to Time Past by John Willliams\n"
+				"http ://thepiratebay.se/torrent/6508827/Harry_Potter_-_The_Ultimate_Soundtrack_Collection\n\n"
+
+				"Sound Effects\n\n"
+				"Rocket Blast Off\n"
+				"http://www.youtube.com/watch?v=MmJ41X0B8xw\n\n"
+
+				"Images\n\n"
+				"Space Background\n"
+				"http ://www.hdwallpapersos.com/wp-content/uploads/2014/07/Hd-Wallpapers-Space-51.jpg\n\n"
+
+				"Handless Clock Image\n"
+				"http ://www.clker.com/cliparts/c/V/M/7/B/A/clock-without-arms-md.png\n\n"
+
+				"Clock Slideshow Clock Images\n\n"
+				"Clock Tree\n"
+				"http ://files.vladstudio.com/joy/treeofbooks/wcz/preview800x500.jpg\n\n"
+
+				"Eye Clock\n"
+				"http ://wallpaperswa.com/Art_Design/Monochrome/eyes_clocks_grayscale_monochrome_photomanipulations_2798x1894_wallpaper_32413/download_2798x1894\n\n"
+				
+				"Greyscale Clocks Roman Numerals\n"
+				"http ://hdw.eweb4.com/wallpapers/6394/\n\n"
+				
+				"Astrological Clock\n"
+				"http ://widewallpapers.info/wp-content/uploads/2014/08/clocks-prague-czech-republic-fresh-hd-wallpaper-Czech-Republic-HD-free-wallpapers-backgrounds-images-FHD-4k-download-2014-2015-2016.jpg\n\n"
+				
+				"Creepy Bird Clock\n"
+				"http ://www.wallpaperup.com/uploads/wallpapers/2013/03/20/55072/aba405a4e79a0164e75ea6af54b88ce8.jpg\n\n"
+				
+				"Melting Clock\n"
+				"http ://hd4desktop.com/images/b/1366x768_clocks-melt-Salvador-Dali-time-abstract-HD-Wallpaper.jpg\n\n"
 
 				, "MEDIA" // message box caption
 				);
 
 			MessageBox::Show(
 
-				"1. Use Label or drawstring for function 6\n"
-				"2. Make Numerals big, bold, and beautiful\n"
-				"3. Use sleep and clear previous numeral before drawing the next one\n"
-				"4. Have countdown go from 9 to 0\n"
-				"5. Draw horizontal & vertical use fill rectangle\n"
-				"6. Creative flair LED based numerals\n"
-				"7. Added col and row parameters to draw functions\n"
-				"8. Expand stardate to include hour min and sec\n"
-				"9. Change the background layout using code, not designer mode"
-				"Total Stars: 9"
+				"1. Insert 0's to formated time without if statements 6\n"
+				"2. Display clock at beginning with current time\n"
+				"3. Take time data as hh:mm:ss\n"
+				"4. Compute how many minutes to the next hour\n"
+				"5. Play clock ticking sound or other approriate sound in background\n"
+				"6. Increase thickness of clock hands to stand out more\n"
+				"7. Add button for musical slide show of many clocks\n"
+				"8. Draw clock hands on clock image\n"
+				"9. Two clocks, one drawn, on from image\n"
+				"10. Add 1- 12 on drawn clock\n"
+				"11. Extra pizzaz draw minute markers with for loop accounting for Hour markers\n"
+				"12. Use DrawString to draw the time string\n"
+				"13. Advanced Feature: Used string array to cycle through images for slide show \n"
+				"14. Prompt user for hour minute and second and add second info in rest of program\n"
+				"Total Stars: 14"
 				, "STARS" // message box caption
 				);
 
@@ -2422,6 +2590,7 @@ namespace Program_1 {
 			////////////////////////////////////////////////////////////////////
 
 			Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+			System::Media::SoundPlayer sndPlayer("..//Media/Audio/Music/Red Like Roses (RWBY Music Box Version).wav");
 
 			////////////////////////////////////////////////////////////////////
 			
@@ -2430,9 +2599,14 @@ namespace Program_1 {
 			clear(canvas);
 			pictureBoxCountdown->SendToBack();
 
+
+			Threading::Thread::Sleep(1000);
+			sndPlayer.PlayLooping();
+
+
 			labelWelcomeDescription->Text = "You are never out of touch with your family, friends, or business associates" +
 				"when you travel to distant heavenly bodies with " + MY_NAME + "'s Intergalactic Travel." +
-				"During your flight just register to our internet service to let us know " +
+				" During your flight just register to our internet service to let us know " +
 				"when you wish to schedule your web surfing from outer space.";
 
 			labelWelcomeTitle->Visible = true;
@@ -2446,11 +2620,9 @@ namespace Program_1 {
 
 		}
 
-		///////////////////////////////////////////////////////////////
-
 		/*//////////////////////////////////////////////////////////////
 
-		EVENT-DRIVEN FUNCTIONS
+		END CUSTOMED DEFINED FUNCTIONS
 
 		//////////////////////////////////////////////////////////////*/
 
@@ -2474,7 +2646,7 @@ namespace Program_1 {
 			DateTime::Now.ToString();
 	}
 
-private: System::Void buttonContinue_Click(System::Object^  sender, System::EventArgs^  e) 
+	private: System::Void buttonContinue_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 	////////////////////////////////////////////////////////////////////
 	//
@@ -2490,9 +2662,6 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 	String^ password = "Default Password";
 	String^ startTime;
 	String^ fontName = "Impact";
-
-
-	
 
 	////////////////////////////////////////////////////////////////////
 
@@ -2537,15 +2706,23 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 
 			convertTime(startTime, hour, minute, second);
 
+			labelWelcomeDescription->Text = "Thank you " + name + " for entering " + startTime + ". "
+				+ "Enjoy your internet experience starting at " + hour.ToString("D2") + ":" + minute.ToString("D2") + ":" + second.ToString("D2") + ".";
 			
+			calcTimeRemaining(hour, minute, second);
+
+			textBoxAccountNumber->Text = "Enter your name.";
+			textBoxPassword->Text = "HH:MM:SS";
 
 			timerClock->Enabled = false;
 
+			// Draws clock on the left
 			drawClock(hour, minute, second);
 
-
+			// Draws clock on right with image
 			drawClockHands(hour, minute, second);
 
+			// Draws the time between the two clocks
 			drawTime(hour, minute, second, fontName, fontSize);
 
 			break;
@@ -2555,21 +2732,146 @@ private: System::Void buttonContinue_Click(System::Object^  sender, System::Even
 			labelWelcomeDescription->Text = "If you can see this the switch is broken.";
 	}
 }
-private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e) 
+	private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+		////////////////////////////////////////////////////////////////////
+		//
+		//				DECLARE LOCAL VARIABLES/OBJECTS
+		//
+		////////////////////////////////////////////////////////////////////
+
+		Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+
+		////////////////////////////////////////////////////////////////////
 
 	pictureBoxCountdown->BringToFront();
 	countdown(canvas);
 	farewell();
 }
 
-private: System::Void timerClock_Tick(System::Object^  sender, System::EventArgs^  e) 
+	private: System::Void timerClock_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
-	int hour = DateTime::Now.Hour;
-	int minute = DateTime::Now.Minute;
-	int second = DateTime::Now.Second;
+		////////////////////////////////////////////////////////////////////
+		//
+		//				DECLARE LOCAL VARIABLES/OBJECTS
+		//
+		////////////////////////////////////////////////////////////////////
+
+		int hour = DateTime::Now.Hour;
+		int minute = DateTime::Now.Minute;
+		int second = DateTime::Now.Second;
+
+		////////////////////////////////////////////////////////////////////
+
 	drawClock(hour, minute, second);
 }
+	private: System::Void ClockShow_MouseHover(System::Object^  sender, System::EventArgs^  e) 
+{
+	buttonClockShow->Text = "Clocks!";
+}
+	private: System::Void ClockShow_MouseLeave(System::Object^  sender, System::EventArgs^  e) 
+{
+	buttonClockShow->Text = "Clocks?";
+}
+	private: System::Void buttonClockShow_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+		////////////////////////////////////////////////////////////////////
+		//
+		//				DECLARE LOCAL VARIABLES/OBJECTS
+		//
+		////////////////////////////////////////////////////////////////////
+
+		System::Media::SoundPlayer sndPlayer(".../Media/Audio/Music/John Williams - Forward to Time Past.wav");
+
+		Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+
+
+		////////////////////////////////////////////////////////////////////
+		
+
+		sndPlayer.PlayLooping();
+		
+		pictureBoxCountdown->BringToFront();
+		clear(canvas);
+
+		timerClockShow->Enabled = true;
+
+		buttonExitClockShow->Visible = true;
+		buttonExitClockShow->BringToFront();
+
+
+
+	
+	
+	
+
+
+}
+private: System::Void buttonExitClockShow_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+	////////////////////////////////////////////////////////////////////
+	//
+	//				DECLARE LOCAL VARIABLES/OBJECTS
+	//
+	////////////////////////////////////////////////////////////////////
+
+	Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+	System::Media::SoundPlayer sndPlayer("..//Media/Audio/Music/Red Like Roses (RWBY Music Box Version).wav");
+
+	////////////////////////////////////////////////////////////////////
+
+
+	timerClockShow->Enabled = false;
+
+	clear(canvas);
+	pictureBoxCountdown->SendToBack();
+	sndPlayer.PlayLooping();
+
+
+	buttonExitClockShow->Visible = false;
+}
+private: System::Void timerClockShow_Tick(System::Object^  sender, System::EventArgs^  e) 
+{
+	////////////////////////////////////////////////////////////////////
+	//
+	//				DECLARE LOCAL VARIABLES/OBJECTS
+	//
+	////////////////////////////////////////////////////////////////////
+	static int index;
+
+	Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+
+	Image^ clockImage;
+
+	String^ commonFilePath = ".../Media/Images/";
+
+	array<String^> ^clockPictureArray = { "1366x768_clocks-melt-Salvador-Dali-time-abstract-HD-Wallpaper.jpg",
+		"aba405a4e79a0164e75ea6af54b88ce8.jpg",
+		"clocks-digital-art-hd-wallpaper-1920x1080-6394.jpg",
+		"clocks-prague-czech-republic-fresh-hd-wallpaper-Czech-Republic-HD-free-wallpapers-backgrounds-images-FHD-4k-download-2014-2015-2016.jpg",
+		"eyes_clocks_grayscale_monochrome_photomanipulations_2798x1894_wallpaper_Wallpaper_2798x1894_www.wallpaperswa.com.jpg",
+		"preview800x500.jpg" };
+
+	////////////////////////////////////////////////////////////////////
+
+	clockImage = Image::FromFile(commonFilePath + clockPictureArray[index]);
+	canvas->DrawImage(clockImage, 100, 65, 800, 600);
+
+	index++;
+	if (index > 5)
+	{
+		index = 0;
+	}
+
+
+}
+//private: System::Void labelWelcomeDescription_TextChanged(System::Object^  sender, System::EventArgs^  e) 
+//{
+//	int formLengthMidpoint = 1008/2;
+//	int labelLengthMidpoint = (labelWelcomeDescription->Width)/2;
+//
+//	labelWelcomeDescription->Location = System::Drawing::Point( formLengthMidpoint - labelLengthMidpoint, 71 );
+//}
+
 };
 }
