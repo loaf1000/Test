@@ -438,7 +438,7 @@ namespace Program_1 {
 
 		/*//////////////////////////////////////////////////////////////
 
-		DECLARE GLOBAL CONSTANTS
+							DECLARE GLOBAL CONSTANTS
 
 		/////////////////////////////////////////////////////////////*/
 
@@ -448,7 +448,7 @@ namespace Program_1 {
 
 		/*//////////////////////////////////////////////////////////////
 
-		DECLARE GLOBAL VARIABLES
+							DECLARE GLOBAL VARIABLES
 
 		//////////////////////////////////////////////////////////////*/
 
@@ -461,9 +461,32 @@ namespace Program_1 {
 
 		/*//////////////////////////////////////////////////////////////
 
-		CUSTOM DEFINED FUNCTIONS
+						CUSTOM DEFINED FUNCTIONS
 
 		//////////////////////////////////////////////////////////////*/
+
+		/**************************************************************
+
+				NAME: calcHourCoords
+
+				DESCRIPTION: Calculates the x,y value for the endpoint of the clock hour hand
+
+				PRECONDITIONS: Assume that hour and minute are positive integers and provided by the user.
+				Hour ranges from (0-23) and minute ranges from (0-59). xHour and yHour are passed by reference,
+				and do not require an intial value but must of type double.
+
+				POSTCONDITIONS: The angle of the hour hand is calculated by the formula hA = (hour*30 + minute/2).
+				The angle is then converted into to radians with the formula A (in radians) = hA(in degrees) * pi/180.
+				xHour is the x coordinate that is calculated using the formula xHour = (midpoint x value) + (Sin(A) * (hour hand length)).
+				yHour is the y coordinate that is calculated using the formula yHour = (midpoint y value) - (Cos(A) * (hour hand length)).
+				xHour and yHour are returned by reference.
+				
+				CALLED BY: drawClock, drawClockImage
+
+				CALLS: None
+
+		**************************************************************/
+
 
 		void calcHourCoords(int hour, int minute, double &xHour, double &yHour)
 		{
@@ -473,7 +496,7 @@ namespace Program_1 {
 			//
 			////////////////////////////////////////////////////////////////////
 			
-			double pi = Math::PI;
+			const double &pi = Math::PI;
 
 			double hAngle = ((hour * 30) + (minute * 0.5)) * (pi / 180);
 
@@ -484,6 +507,27 @@ namespace Program_1 {
 
 		}
 
+		/**************************************************************
+
+		NAME: calcMinuteCoords
+
+		DESCRIPTION: Calculates the x,y value for the endpoint of the clock minute hand
+
+		PRECONDITIONS: Assume that minute is a positive integer and provided by the user.
+		minute ranges from (0-59). xMinute and yMinute are passed by reference,
+		and do not require an intial value but must of type double.
+
+		POSTCONDITIONS: The angle of the minute hand is calculated by the formula mA = (minute * 6).
+		The angle is then converted into to radians with the formula A (in radians) = mA(in degrees) * pi/180.
+		xMinute is the x coordinate that is calculated using the formula xMinute = (midpoint x value) + (Sin(A) * (minute hand length)).
+		yMinute is the y coordinate that is calculated using the formula yMinute = (midpoint y value) - (Cos(A) * (minute hand length)).
+		xMinute and yMinute are returned by reference.
+
+		CALLED BY: drawClock, drawClockImage
+
+		CALLS: None
+
+		**************************************************************/
 
 		void calcMinuteCoords(int minute, double &xMinute, double &yMinute)
 		{
@@ -504,6 +548,39 @@ namespace Program_1 {
 			xMinute = 150 + (Math::Sin(mAngle) * 100);
 			yMinute = 150 - (Math::Cos(mAngle) * 100);
 		}	
+
+		/**************************************************************
+
+		NAME: calcMinuteTick
+
+		DESCRIPTION: Calculates the x,y value for the start point and the x,y for the endpoint of the clock minute ticks
+
+		PRECONDITIONS: Assume that minute is a positive integer and provided by the user.
+		minute ranges from (0-59). xTick, yTick, x2Tick, y2Tick are passed by reference,
+		and do not require an intial value but must of type double.
+
+		POSTCONDITIONS: The angle of the minute tick is calculated by the formula mA = (minute * 6).
+		The angle is then converted into to radians with the formula A (in radians) = mA(in degrees) * pi/180.
+		
+		xTick is the start point x coordinate that is calculated using the formula: 
+		xTick = (midpoint x value) + (Sin(A) * (length from midpoint of circle to starting point of the tick)).
+
+		yTick is the start point y coordinate that is calculated using the formula :
+		yTick = (midpoint y value) - (Cos(A) * (length from midpoint of circle to starting point of the tick)).
+
+		x2Tick is the endpoint x coordinate that is calculated using the formula:
+		x2Tick = (xTick) + (Sin(A) * (length of tick)).
+
+		y2Tick is the endpoint y coordinate that is calculated using the formula :
+		y2Tick = (yTick) - (Cos(A) * (length of tick)).
+		
+		xTick, yTick, x2Tick, y2Tick are returned by reference.
+
+		CALLED BY: drawClock, drawClockImage
+
+		CALLS: None
+
+		**************************************************************/
 
 		void calcMinuteTick(int minute, double &xTick, double &yTick, double &x2Tick, double &y2Tick)
 		{
@@ -528,6 +605,28 @@ namespace Program_1 {
 			y2Tick = yTick - (Math::Cos(mAngle) * 15);
 		}
 
+		/**************************************************************
+
+		NAME: calcSecondCoords
+
+		DESCRIPTION: Calculates the x,y value for the endpoint of the clock minute hand
+
+		PRECONDITIONS: Assume that second is a positive integer and provided by the user.
+		second ranges from (0-59). xSecond and ySecond are passed by reference,
+		and do not require an intial value but must of type double.
+
+		POSTCONDITIONS: The angle of the second hand is calculated by the formula mA = (second * 6).
+		The angle is then converted into to radians with the formula A (in radians) = sA(in degrees) * pi/180.
+		xMinute is the x coordinate that is calculated using the formula xSecond = (midpoint x value) + (Sin(A) * (second hand length)).
+		yMinute is the y coordinate that is calculated using the formula ySecond = (midpoint y value) - (Cos(A) * (second hand length)).
+		xSecond and ySecond are returned by reference.
+
+		CALLED BY: drawClock, drawClockImage
+
+		CALLS: None
+
+		**************************************************************/
+
 		void calcSecondCoords(int second, double &xSecond, double &ySecond)
 		{
 			////////////////////////////////////////////////////////////////////
@@ -548,6 +647,27 @@ namespace Program_1 {
 			ySecond = 150 - (Math::Cos(sAngle) * 110);
 		}
 
+		/**************************************************************
+
+				NAME: calcTimeRemaining
+
+				DESCRIPTION: Calculates the minutes and seconds to the next hour and displays
+				it in a label. 
+
+				Ex hour = 12, minute = 13, second = 55
+				Display: ...That will be 46 minutes and 05 seconds until 13 hour.
+
+				PRECONDITIONS: Assume hour, minute, and second are positive integers entered by the user.
+				hour ranges from (0-23), minute ranges from (0-59), second ranges from (0-59).
+
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: none
+
+		**************************************************************/
+
 		void calcTimeRemaining(int hour, int minute, int second)
 		{
 			if (hour == 23)
@@ -557,7 +677,8 @@ namespace Program_1 {
 
 
 			if (second == 0)
-			{
+			{  // .ToString("D2") the D2 is a command that will treat the integer as a decimal that will have at least two digits.
+			   // if the integer value is only one digit .ToString("D2") will add a leading zero. 
 				labelWelcomeDescription->Text += "\nThat will be " + (60 - minute).ToString("D2") + " minutes until "
 					+ (hour + 1).ToString("D2") + " hour.";
 			}
@@ -571,14 +692,18 @@ namespace Program_1 {
 
 		/**************************************************************
 
-		NAME:			clear
+				NAME: clear
 
-		DESCRIPTION:	clears the drawing canvas and sets the color to black
+				DESCRIPTION: Clears the drawing canvas by redrawing spaceImage
 
-		CALLED BY: countdown
-		buttonSubmit_click
+				PRECONDITIONS: clear requires an intialized Graphics canvas to draw the image on.
 
-		CALLS: None
+				POSTCONDITIONS: None
+
+				CALLED BY: cutton_ClockShow_Click, buttonExitClockShow_Click, countdown, drawTime, welcome
+
+
+				CALLS: None
 
 		**************************************************************/
 
@@ -601,6 +726,27 @@ namespace Program_1 {
 			canvas->DrawImage(spaceImage, 0, 0, 1008, 730); // 1024-16 = 1008, 768-730 = 38 may be useful for stretching images manually
 
 		}
+
+		/**************************************************************
+
+				NAME: convertTime
+
+				DESCRIPTION: Converts the HH:MM:SS format to integer values for hour minute and second.
+
+				PRECONDITIONS: Assume user has entered the hour, minute, and second in a string in HH:MM:SS format
+				and that string is referenced by sTime. hour, minute, and second are also passed by reference, but do not need
+				an intial value.
+
+				POSTCONDITIONS: sTime is split into a String^ array splitTime, with a substring created by copying every
+				character in sTime until the ":", in which the next substring will begin after the ":". These substrings are 
+				then parsed to try to get a corresponding integer value of the hour, minute, and second. 
+				These values are returned by reference in hour, minute, and second.
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: None
+
+		**************************************************************/
 
 
 		void convertTime(String^ &sTime, int &hour, int &minute, int &second)
@@ -635,24 +781,19 @@ namespace Program_1 {
 
 		/**************************************************************
 
-		NAME:			countdown
+				NAME: countdown
 
-		DESCRIPTION:	displays a counts down from 9 to 0 by drawing red numerals
-		based on a 7 segment LED display
+				DESCRIPTION: Displays a countsdown from 9 to 0 by drawing red numerals based on a 7 segment LED display
+				and plays a rocket blast off sound at 0.
 
-		CALLED BY: buttonSubmit_click
+				PRECONDITIONS: countdown requires an intialized Graphics canvas to pass to the functions it calls.
 
-		CALLS: clear
-		laithesDraw9
-		laithesDraw8
-		laithesDraw7
-		laithesDraw6
-		laithesDraw5
-		laithesDraw4
-		laithesDraw3
-		laithesDraw2
-		laithesDraw1
-		laithesDraw0
+				POSTCONDITIONS: None
+
+				CALLED BY: farewell, welcome
+
+				CALLS: clear, laithesDraw9, laithesDraw8, laithesDraw7, laithesDraw6, laithesDraw5
+				laithesDraw4, laithesDraw3, laithesDraw2, laithesDraw1, laithesDraw0
 
 		**************************************************************/
 
@@ -721,6 +862,24 @@ namespace Program_1 {
 			clear(canvas);
 		}
 
+		/**************************************************************
+
+				NAME: displayNameStartTimeLabels()
+
+				DESCRIPTION: Displays labels and textboxes required to instruct and allow the user to input his/her name and 
+				start time in HH:MM:SS format.
+
+				PRECONDITIONS: None
+
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: None
+
+		**************************************************************/
+
+
 		void displayNameStartTimeLabels()
 		{
 			labelWelcomeDescription->Text = "Please enter your name and your start time. \n Start time format: hh:mm:ss \n (0-23 hour) (0-59 minute) (0-59 second)";
@@ -744,6 +903,24 @@ namespace Program_1 {
 			buttonClockShow->Visible = true;
 		}
 
+		/**************************************************************
+
+				NAME: drawClock
+
+				DESCRIPTION: Draws a clock 300 by 300 in size with a black border, a white face, and with hour, minute, and second hands.
+
+				PRECONDITIONS: Assume hour, minute, and second are positive integers entered by the user.
+				hour ranges from (0-23), minute ranges from (0-59), second ranges from (0-59). These values are passed by reference.
+
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonContinue_Click, timerClock_Tick
+
+				CALLS: calcHourCoords, calcMinute, Coords, calcMinuteTick, calcSecondCoords
+
+		**************************************************************/
+
+
 		void drawClock(int &hour, int &minute, int &second)
 		{
 			
@@ -758,7 +935,7 @@ namespace Program_1 {
 
 			Brush^ drawBrushBlack = gcnew Drawing::SolidBrush(System::Drawing::Color::Black);
 			Brush^ drawBrushWhite = gcnew Drawing::SolidBrush(System::Drawing::Color::White);
-			Brush^ drawBrushGreen = gcnew Drawing::SolidBrush(System::Drawing::Color::Green);
+
 
 			Pen^ drawPenBlack = gcnew Drawing::Pen(System::Drawing::Color::Black, 4);//bug found if width is odd hour 00 will align, but not hour 12
 			Pen^ drawPenBlackThin = gcnew Drawing::Pen(System::Drawing::Color::Black, 2);
@@ -776,11 +953,10 @@ namespace Program_1 {
 			canvas->FillEllipse(drawBrushBlack, 0, 0, 300, 300);
 			canvas->FillEllipse(drawBrushWhite, 5, 5, 290, 290);
 
-			//canvas->FillEllipse(drawBrushWhite, 230, 230, 30, 30);
 
 			//Draws the minute ticks using bolder lines that also represent the hour ticks
 
-			for (int m = 0; m < 60; m ++) /*TODO Draw clock ticks for each minute and draw 1,2,4,5,7,8,10,11 on the clock*/
+			for (int m = 0; m < 60; m ++) 
 			{
 				////////////////////////////////////////////////////////////////////
 				//
@@ -841,7 +1017,24 @@ namespace Program_1 {
 			
 		}
 
-		void drawClockHands(int &hour, int &minute, int &second)
+		/**************************************************************
+
+		NAME: drawClockImage
+
+		DESCRIPTION: Draws a clock 300 by 300 in size, from an image, and with hour, minute, and second hands.
+
+		PRECONDITIONS: Assume hour, minute, and second are positive integers entered by the user.
+		hour ranges from (0-23), minute ranges from (0-59), second ranges from (0-59). These values are passed by reference.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: buttonContinue_Click,
+
+		CALLS: calcHourCoords, calcMinute, Coords, calcSecondCoords
+
+		**************************************************************/
+
+		void drawClockImage(int &hour, int &minute, int &second)
 		{
 			////////////////////////////////////////////////////////////////////
 			//
@@ -877,6 +1070,24 @@ namespace Program_1 {
 			canvas->DrawLine(drawPenRed, 150, 150, xSecond, ySecond);
 		}
 
+		/**************************************************************
+
+				NAME: drawEdge
+
+				DESCRIPTION: Draws a red polygon based on an array of points.
+
+				PRECONDITIONS: Assume that programmer knows the points (x,y) in which he/she would like to draw a polygon and has put those
+				points in a Point array. drawEdge requires an intialized Graphics canvas to draw its polygon on.
+
+				POSTCONDITIONS: None
+
+				CALLED BY: laithesDraw9, laithesDraw8, laithesDraw7, laithesDraw6, laithesDraw5
+				laithesDraw4, laithesDraw3, laithesDraw2, laithesDraw1, laithesDraw0
+
+				CALLS: None
+
+		**************************************************************/
+
 		void drawEdge(array<Point>^ coords, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -895,6 +1106,25 @@ namespace Program_1 {
 
 		}
 
+		/**************************************************************
+
+				NAME: drawHorizontal
+
+				DESCRIPTION: Draws a red horizontal rectangle.
+
+				PRECONDITIONS: Assume that programmer knows the starting point (col, row) in which he/she would 
+				like to draw a horizontal rectangle as well as its length and width.
+				drawHorizontal requires an intialized Graphics canvas to draw its horizontal rectangle on.
+
+				POSTCONDITIONS: None
+
+				CALLED BY: laithesDraw9, laithesDraw8, laithesDraw7, laithesDraw6, laithesDraw5
+				laithesDraw4, laithesDraw3, laithesDraw2, laithesDraw1, laithesDraw0
+
+				CALLS: None
+
+		**************************************************************/
+
 		void drawHorizontal(int col, int row, int length, int width, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -903,7 +1133,6 @@ namespace Program_1 {
 
 			//////////////////////////////////////////////////////////////*/
 
-			//canvas = this->CreateGraphics();
 
 			Brush^ drawBrush = gcnew Drawing::SolidBrush(System::Drawing::Color::Red);
 
@@ -911,6 +1140,24 @@ namespace Program_1 {
 
 			canvas->FillRectangle(drawBrush, col, row, length, width);
 		}
+
+		/**************************************************************
+
+				NAME: drawTime
+
+				DESCRIPTION: Draws the time in HH:MM:SS format including leading zeros on single digits.
+
+				PRECONDITIONS: Assume hour, minute, and second are positive integers entered by the user.
+				hour ranges from (0-23), minute ranges from (0-59), second ranges from (0-59). These values are passed by reference.
+				fontName is a string of the name a recognized font on the system and is entered by the programmer.
+				fontSize is a positive integer representing font size ranging from (8-72) and is entered by the programmer.
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: clear
+
+		**************************************************************/
 
 		void drawTime(int &hour, int &minute, int &second, String^ &fontName, int &fontSize)
 		{
@@ -935,6 +1182,25 @@ namespace Program_1 {
 			canvas->DrawString(time, drawFont, drawBrushOrange, 410, 407);
 		}
 
+		/**************************************************************
+
+		NAME: drawVertical
+
+		DESCRIPTION: Draws a red vertical rectangle.
+
+		PRECONDITIONS: Assume that programmer knows the starting point (col, row) in which he/she would
+		like to draw a vertical rectangle as well as its length and width.
+		drawVertical requires an intialized Graphics canvas to draw its horizontal rectangle on.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: laithesDraw9, laithesDraw8, laithesDraw7, laithesDraw6, laithesDraw5
+		laithesDraw4, laithesDraw3, laithesDraw2, laithesDraw1, laithesDraw0
+
+		CALLS: None
+
+		**************************************************************/
+
 		void drawVertical(int col, int row, int length, int width, Graphics^ &canvas)
 		{
 			////////////////////////////////////////////////////////////////////
@@ -951,14 +1217,64 @@ namespace Program_1 {
 			canvas->FillRectangle(drawBrush, col, row, length, width);
 		}
 
+		/**************************************************************
+
+				NAME: echoAccountInfo
+
+				DESCRIPTION: Displays user inputed account number and password in a label.
+
+				EX accountNumber = 12345, password = P@ssw0rd
+				Display: Thank you for entering the account #: 12345 and the password: P@ssw0rd.
+
+				PRECONDITIONS: accountNumber and password are both strings entered by user. acountNumber
+				should have no other characters than (0-9) and be at a minimum length of 4 characters.
+				password must be a minimum of 6 characters.
+
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: None
+
+		**************************************************************/
+
 		void echoAccountInfo(String^ accountNumber, String^ password)
 		{
 			labelWelcomeDescription->Text = "Thank you for entering the account #: " + accountNumber
 											+ " and the password: " + password + ".";
 		}
 
+		/**************************************************************
+
+				NAME: farewell
+
+				DESCRIPTION: Displays a countdown and a farewell message, ID information, Credits, Media, and Stars in message boxes.
+				farewell then closes the form.
+
+				PRECONDITIONS: None
+
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonExit_Click
+
+				CALLS: countdown
+
+		**************************************************************/
+
 		void farewell()
 		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+			Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+
+			////////////////////////////////////////////////////////////////////
+
+			countdown(canvas);
+
 			MessageBox::Show(
 				name + ", we hope you have enjoyed our internet service here at " + MY_NAME + "'s Intergalatic Travel Agency.",
 				"SEE YOU SOON!" // message box caption
@@ -1047,10 +1363,44 @@ namespace Program_1 {
 
 		}
 
+		/**************************************************************
+
+				NAME: getAccountNumber
+
+				DESCRIPTION: Returns the string of the account number entered by a user in a textbox.
+
+				PRECONDITIONS: None
+
+				POSTCONDITIONS: See Description
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: None
+
+		**************************************************************/
+
+
 		String^ getAccountNumber()
 		{
 			return textBoxAccountNumber->Text;
 		}
+
+		/**************************************************************
+
+				NAME: getPassword
+
+				DESCRIPTION: Returns a String^ of a password a user entered in a textbox
+
+				PRECONDITIONS: Assume a String^ is passed by reference to the function. The String^ does not need an inital value.
+
+				POSTCONDITIONS: The String^ is returned by reference.
+
+				CALLED BY: buttonContinue_Click
+
+				CALLS: none
+
+		**************************************************************/
+
 
 		void getPassword(String^ &password)
 		{
@@ -2711,7 +3061,7 @@ namespace Program_1 {
 			
 			calcTimeRemaining(hour, minute, second);
 
-			textBoxAccountNumber->Text = "Enter your name.";
+
 			textBoxPassword->Text = "HH:MM:SS";
 
 			timerClock->Enabled = false;
@@ -2720,7 +3070,7 @@ namespace Program_1 {
 			drawClock(hour, minute, second);
 
 			// Draws clock on right with image
-			drawClockHands(hour, minute, second);
+			drawClockImage(hour, minute, second);
 
 			// Draws the time between the two clocks
 			drawTime(hour, minute, second, fontName, fontSize);
@@ -2734,18 +3084,7 @@ namespace Program_1 {
 }
 	private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-		////////////////////////////////////////////////////////////////////
-		//
-		//				DECLARE LOCAL VARIABLES/OBJECTS
-		//
-		////////////////////////////////////////////////////////////////////
-
-		Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
-
-		////////////////////////////////////////////////////////////////////
-
 	pictureBoxCountdown->BringToFront();
-	countdown(canvas);
 	farewell();
 }
 
@@ -2837,7 +3176,7 @@ private: System::Void timerClockShow_Tick(System::Object^  sender, System::Event
 	//				DECLARE LOCAL VARIABLES/OBJECTS
 	//
 	////////////////////////////////////////////////////////////////////
-	static int index;
+	static int index; 
 
 	Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
 
