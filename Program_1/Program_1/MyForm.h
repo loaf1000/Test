@@ -19,15 +19,65 @@ Project Name		:  	    	Program_1
 ***************************************************************
 CUSTOM DEFINED FUNCTIONS
 
+calcHourCoords
+calcMinuteCoords
+calcMinuteTick
+calcSecondCoords
+calcTimeRemaining
+clear
+convertTime
+countdown
+displayNameStartTimeLabels
+drawClock
+drawClockImage
+drawEdge
+drawHorizontal
+drawTime
+drawVertical
+echoAccountInfo
+farewell
+getAccountNumber
+getPassword
+laithesDraw0
+laithesDraw1
+laithesDraw2
+laithesDraw3
+laithesDraw4
+laithesDraw5
+laithesDraw6
+laithesDraw7
+laithesDraw8
+laithesDraw9
+welcome
 
 ***************************************************************
 ***************************************************************
 EVENT-DRIVEN FUNCTIONS
 
+buttonClockShow_Click
+buttonContinue_Click
+buttonExit_Click
+buttonExitClockShow_Click
+buttonStart_Click
+clockShow_MouseHover
+clockShow_MouseLeave
+timerClock_Tick
+timerClockShow_Tick
+timerDateTime_Tick
 
 ***************************************************************
 ***************************************************************
 PROGRAM DESCRIPTION
+
+The program starts with a countdown and then welcomes the user to the Intergalactic Internet Service. 
+The user is instructed to login with an account number and a password. The account number and password
+are echoed back to the user. Next the user may enter their name and a start time or view a clock slide show.
+When the user enters their name and start time, the program echoes both of them. The program will then display 
+two clocks, one drawn and one from an image, that displays the correct hour, minute, and second hand placement.
+The program the will also display the entered time in a HH:MM:SS format in orange. The user may enter their name
+and a start time any number of times. When the user clicks the Exit button the program will display a countdown. After 
+the countdown the program will display a farewell message, ID information, Credits, Media, and Stars in message boxes.
+The program will then close.
 
 
 ***************************************************************
@@ -377,8 +427,8 @@ namespace Program_1 {
 			this->buttonClockShow->UseVisualStyleBackColor = false;
 			this->buttonClockShow->Visible = false;
 			this->buttonClockShow->Click += gcnew System::EventHandler(this, &MyForm::buttonClockShow_Click);
-			this->buttonClockShow->MouseLeave += gcnew System::EventHandler(this, &MyForm::ClockShow_MouseLeave);
-			this->buttonClockShow->MouseHover += gcnew System::EventHandler(this, &MyForm::ClockShow_MouseHover);
+			this->buttonClockShow->MouseLeave += gcnew System::EventHandler(this, &MyForm::clockShow_MouseLeave);
+			this->buttonClockShow->MouseHover += gcnew System::EventHandler(this, &MyForm::clockShow_MouseHover);
 			// 
 			// buttonExitClockShow
 			// 
@@ -864,7 +914,7 @@ namespace Program_1 {
 
 		/**************************************************************
 
-				NAME: displayNameStartTimeLabels()
+				NAME: displayNameStartTimeLabels
 
 				DESCRIPTION: Displays labels and textboxes required to instruct and allow the user to input his/her name and 
 				start time in HH:MM:SS format.
@@ -1407,7 +1457,23 @@ namespace Program_1 {
 			password = textBoxPassword->Text;
 		}
 
+		/**************************************************************
+
+		NAME: laithesDraw0
+
+		DESCRIPTION: Draws a red LED styled 0
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 0 (col, row)
+		laithesDraw0 requires an intialized Graphics canvas to draw its 0.
 		
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
+
 
 		void laithesDraw0(int col, int row, Graphics^ &canvas)
 		{
@@ -1561,6 +1627,23 @@ namespace Program_1 {
 			//drawEdge(triangleLG);
 		}
 
+		/**************************************************************
+
+		NAME: laithesDraw1
+
+		DESCRIPTION: Draws a red LED styled 1
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 1 (col, row)
+		laithesDraw1 requires an intialized Graphics canvas to draw its 1.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
+
 		void laithesDraw1(int col, int row, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -1712,6 +1795,23 @@ namespace Program_1 {
 			//drawHorizontal(27 + col, 177 + row, 150, 25);
 			//drawEdge(triangleLG);
 		}
+
+		/**************************************************************
+
+		NAME: laithesDraw2
+
+		DESCRIPTION: Draws a red LED styled 2
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 2 (col, row)
+		laithesDraw2 requires an intialized Graphics canvas to draw its 2.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
 
 		void laithesDraw2(int col, int row, Graphics^ &canvas)
 		{
@@ -1865,6 +1965,23 @@ namespace Program_1 {
 			drawEdge(triangleLG, canvas);
 		}
 
+		/**************************************************************
+
+		NAME: laithesDraw3
+
+		DESCRIPTION: Draws a red LED styled 3
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 3 (col, row)
+		laithesDraw3 requires an intialized Graphics canvas to draw its 3.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
+
 		void laithesDraw3(int col, int row, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -2016,6 +2133,23 @@ namespace Program_1 {
 			drawHorizontal(27 + col, 177 + row, 150, 25, canvas);
 			drawEdge(triangleLG, canvas);
 		}
+
+		/**************************************************************
+
+		NAME: laithesDraw4
+
+		DESCRIPTION: Draws a red LED styled 4
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 4 (col, row)
+		laithesDraw4 requires an intialized Graphics canvas to draw its 4.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
 
 		void laithesDraw4(int col, int row, Graphics^ &canvas)
 		{
@@ -2169,6 +2303,23 @@ namespace Program_1 {
 			drawEdge(triangleLG, canvas);
 		}
 
+		/**************************************************************
+
+		NAME: laithesDraw5
+
+		DESCRIPTION: Draws a red LED styled 5
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 5 (col, row)
+		laithesDraw5 requires an intialized Graphics canvas to draw its 5.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
+
 		void laithesDraw5(int col, int row, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -2320,6 +2471,23 @@ namespace Program_1 {
 			drawHorizontal(27 + col, 177 + row, 150, 25, canvas);
 			drawEdge(triangleLG, canvas);
 		}
+
+		/**************************************************************
+
+		NAME: laithesDraw6
+
+		DESCRIPTION: Draws a red LED styled 6
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 6 (col, row)
+		laithesDraw6 requires an intialized Graphics canvas to draw its 6.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
 
 		void laithesDraw6(int col, int row, Graphics^ &canvas)
 		{
@@ -2473,6 +2641,23 @@ namespace Program_1 {
 			drawEdge(triangleLG, canvas);
 		}
 
+		/**************************************************************
+
+		NAME: laithesDraw7
+
+		DESCRIPTION: Draws a red LED styled 7
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 7 (col, row)
+		laithesDraw7 requires an intialized Graphics canvas to draw its 7.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
+
 		void laithesDraw7(int col, int row, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -2624,6 +2809,23 @@ namespace Program_1 {
 			//drawHorizontal(27 + col, 177 + row, 150, 25);
 			//drawEdge(triangleLG);
 		}
+
+		/**************************************************************
+
+		NAME: laithesDraw8
+
+		DESCRIPTION: Draws a red LED styled 8
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 8 (col, row)
+		laithesDraw8 requires an intialized Graphics canvas to draw its 8.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
 
 		void laithesDraw8(int col, int row, Graphics^ &canvas)
 		{
@@ -2779,6 +2981,23 @@ namespace Program_1 {
 
 		}
 
+		/**************************************************************
+
+		NAME: laithesDraw9
+
+		DESCRIPTION: Draws a red LED styled 9
+
+		PRECONDITIONS: Assume programmer knows where he/she wants to place staring coordinates to draw the 9 (col, row)
+		laithesDraw9 requires an intialized Graphics canvas to draw its 9.
+
+		POSTCONDITIONS: None
+
+		CALLED BY: countdown
+
+		CALLS: drawEdge, drawHorizontal, drawVertical
+
+		**************************************************************/
+
 		void laithesDraw9(int col, int row, Graphics^ &canvas)
 		{
 			/*//////////////////////////////////////////////////////////////
@@ -2931,6 +3150,22 @@ namespace Program_1 {
 			drawEdge(triangleLG, canvas);
 		}
 
+		/**************************************************************
+
+				NAME: welcome
+
+				DESCRIPTION: Displays the countdown, plays music on a loop, and displays welcome title and description.
+
+				PRECONDITIONS: None
+
+				POSTCONDITIONS: None
+
+				CALLED BY: buttonStart_Click
+
+				CALLS: clear, countdown
+
+		**************************************************************/
+
 		void welcome()
 		{
 			////////////////////////////////////////////////////////////////////
@@ -2972,9 +3207,212 @@ namespace Program_1 {
 
 		/*//////////////////////////////////////////////////////////////
 
-		END CUSTOMED DEFINED FUNCTIONS
+						END CUSTOMED DEFINED FUNCTIONS
 
 		//////////////////////////////////////////////////////////////*/
+
+
+		/*//////////////////////////////////////////////////////////////
+
+						EVENT DRIVEN DEFINED FUNCTIONS
+
+		//////////////////////////////////////////////////////////////*/
+
+
+		/**************************************************************
+
+			NAME: buttonClockShow_Click
+
+			DESCRIPTION: Starts the clock slideshow.
+
+		**************************************************************/
+
+	private: System::Void buttonClockShow_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+			System::Media::SoundPlayer sndPlayer(".../Media/Audio/Music/John Williams - Forward to Time Past.wav");
+
+			Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+
+
+			////////////////////////////////////////////////////////////////////
+
+
+			sndPlayer.PlayLooping();
+
+			pictureBoxCountdown->BringToFront();
+			clear(canvas);
+
+			timerClockShow->Enabled = true;
+
+			buttonExitClockShow->Visible = true;
+			buttonExitClockShow->BringToFront();
+
+
+
+
+
+
+
+
+		}
+		
+		/**************************************************************
+
+			 NAME: buttonContinue_Click
+
+			 DESCRIPTION: Progresses the program based on click.
+
+		**************************************************************/
+	private: System::Void buttonContinue_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
+
+			int hour, minute, second, fontSize = 36;
+
+			static int programProgress = 0;
+
+			String^ accountNumber = "-1";
+			String^ password = "Default Password";
+			String^ startTime;
+			String^ fontName = "Impact";
+
+			////////////////////////////////////////////////////////////////////
+
+			switch (programProgress)
+			{
+			case 0:
+				labelWelcomeDescription->Text = "Please enter your account number and password.";
+
+				labelAccountNumber->Visible = true;
+				labelPassword->Visible = true;
+				textBoxAccountNumber->Visible = true;
+				textBoxPassword->Visible = true;
+				labelWelcomeTitle->Visible = false;
+
+				buttonContinue->Text = "Login";
+
+				programProgress = 1;
+				break;
+			case 1:
+				accountNumber = getAccountNumber();
+				getPassword(password);
+
+				echoAccountInfo(accountNumber, password);
+
+				labelAccountNumber->Visible = false;
+				labelPassword->Visible = false;
+				textBoxAccountNumber->Visible = false;
+				textBoxPassword->Visible = false;
+				buttonContinue->Text = "Continue";
+
+				programProgress = 2;
+				break;
+			case 2:
+				displayNameStartTimeLabels();
+
+				programProgress = 3;
+				break;
+
+			case 3:
+				name = textBoxAccountNumber->Text;
+				startTime = textBoxPassword->Text;
+
+				convertTime(startTime, hour, minute, second);
+
+				labelWelcomeDescription->Text = "Thank you " + name + " for entering " + startTime + ". "
+					+ "Enjoy your internet experience starting at " + hour.ToString("D2") + ":" + minute.ToString("D2") + ":" + second.ToString("D2") + ".";
+
+				calcTimeRemaining(hour, minute, second);
+
+
+				textBoxPassword->Text = "HH:MM:SS";
+
+				timerClock->Enabled = false;
+
+				// Draws clock on the left
+				drawClock(hour, minute, second);
+
+				// Draws clock on right with image
+				drawClockImage(hour, minute, second);
+
+				// Draws the time between the two clocks
+				drawTime(hour, minute, second, fontName, fontSize);
+
+				break;
+
+			default:
+				// Default should neer happen
+				labelWelcomeDescription->Text = "If you can see this the switch is broken.";
+			}
+		}
+
+		/**************************************************************
+
+			 NAME: buttonExit_Click
+
+			 DESCRIPTION: Ends the program.
+
+
+		**************************************************************/
+
+	private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e)
+				{
+					pictureBoxCountdown->BringToFront();
+					farewell();
+				}
+
+		/**************************************************************
+
+			 NAME: buttonExitClockShow_Click
+
+			 DESCRIPTION: Exit clock slideshow.
+
+
+		**************************************************************/
+
+	private: System::Void buttonExitClockShow_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 ////////////////////////////////////////////////////////////////////
+				 //
+				 //				DECLARE LOCAL VARIABLES/OBJECTS
+				 //
+				 ////////////////////////////////////////////////////////////////////
+
+				 Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+				 System::Media::SoundPlayer sndPlayer("..//Media/Audio/Music/Red Like Roses (RWBY Music Box Version).wav");
+
+				 ////////////////////////////////////////////////////////////////////
+
+
+				 timerClockShow->Enabled = false;
+
+				 clear(canvas);
+				 pictureBoxCountdown->SendToBack();
+				 sndPlayer.PlayLooping();
+
+
+				 buttonExitClockShow->Visible = false;
+			 }
+
+
+		/**************************************************************
+
+				NAME: buttonStart_Click
+
+				DESCRIPTION: Starts the program.
+
+
+		**************************************************************/
 
 	private: System::Void buttonStart_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
@@ -2983,110 +3421,46 @@ namespace Program_1 {
 		
 	}
 
+		/**************************************************************
+
+			 NAME: clockShow_MouseHover
+
+			 DESCRIPTION: Changes button text from Clocks? to Clocks!
+
+
+		**************************************************************/
+
+	private: System::Void clockShow_MouseHover(System::Object^  sender, System::EventArgs^  e)
+	{
+		buttonClockShow->Text = "Clocks!";
+	}
+
+		/**************************************************************
+
+			 NAME: clockShow_MouseLeave
+
+			 DESCRIPTION: Changes button text from Clocks! to Clocks?
+
+		**************************************************************/
+
+	private: System::Void clockShow_MouseLeave(System::Object^  sender, System::EventArgs^  e)
+	{
+		buttonClockShow->Text = "Clocks?";
+	}
+
 	/*private: System::Void pictureBoxCountdown_Paint(Object^ sender, System::Windows::Forms::PaintEventArgs^ e)
 	{
 				 
 
 				 
 	}*/
-	private: System::Void timerDateTime_Tick(System::Object^  sender, System::EventArgs^  e) 
-	{
+	  /**************************************************************
 
-		labelDateTime->Text = "The current date and time:\n" +
-			DateTime::Now.ToString();
-	}
+				NAME: timerClock_Tick
 
-	private: System::Void buttonContinue_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	////////////////////////////////////////////////////////////////////
-	//
-	//				DECLARE LOCAL VARIABLES/OBJECTS
-	//
-	////////////////////////////////////////////////////////////////////
+				DESCRIPTION: Draws a clock with the current time.
 
-	int hour, minute, second, fontSize = 36;
-
-	static int programProgress = 0;
-
-	String^ accountNumber = "-1";
-	String^ password = "Default Password";
-	String^ startTime;
-	String^ fontName = "Impact";
-
-	////////////////////////////////////////////////////////////////////
-
-	switch (programProgress)
-	{
-		case 0:
-			labelWelcomeDescription->Text = "Please enter your account number and password.";
-
-			labelAccountNumber->Visible = true;
-			labelPassword->Visible = true;
-			textBoxAccountNumber->Visible = true;
-			textBoxPassword->Visible = true;
-			labelWelcomeTitle->Visible = false;
-
-			buttonContinue->Text = "Login";
-
-			programProgress = 1;
-			break;
-		case 1:
-			accountNumber = getAccountNumber();
-			getPassword(password);
-
-			echoAccountInfo(accountNumber, password);
-
-			labelAccountNumber->Visible = false;
-			labelPassword->Visible = false;
-			textBoxAccountNumber->Visible = false;
-			textBoxPassword->Visible = false;
-			buttonContinue->Text = "Continue";
-
-			programProgress = 2;
-			break;
-		case 2:
-			displayNameStartTimeLabels();
-
-			programProgress = 3;
-			break;
-
-		case 3:
-			name = textBoxAccountNumber->Text;
-			startTime = textBoxPassword->Text;
-
-			convertTime(startTime, hour, minute, second);
-
-			labelWelcomeDescription->Text = "Thank you " + name + " for entering " + startTime + ". "
-				+ "Enjoy your internet experience starting at " + hour.ToString("D2") + ":" + minute.ToString("D2") + ":" + second.ToString("D2") + ".";
-			
-			calcTimeRemaining(hour, minute, second);
-
-
-			textBoxPassword->Text = "HH:MM:SS";
-
-			timerClock->Enabled = false;
-
-			// Draws clock on the left
-			drawClock(hour, minute, second);
-
-			// Draws clock on right with image
-			drawClockImage(hour, minute, second);
-
-			// Draws the time between the two clocks
-			drawTime(hour, minute, second, fontName, fontSize);
-
-			break;
-			
-		default:
-			// Default should neer happen
-			labelWelcomeDescription->Text = "If you can see this the switch is broken.";
-	}
-}
-	private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	pictureBoxCountdown->BringToFront();
-	farewell();
-}
+	  **************************************************************/
 
 	private: System::Void timerClock_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
@@ -3104,72 +3478,16 @@ namespace Program_1 {
 
 	drawClock(hour, minute, second);
 }
-	private: System::Void ClockShow_MouseHover(System::Object^  sender, System::EventArgs^  e) 
-{
-	buttonClockShow->Text = "Clocks!";
-}
-	private: System::Void ClockShow_MouseLeave(System::Object^  sender, System::EventArgs^  e) 
-{
-	buttonClockShow->Text = "Clocks?";
-}
-	private: System::Void buttonClockShow_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-		////////////////////////////////////////////////////////////////////
-		//
-		//				DECLARE LOCAL VARIABLES/OBJECTS
-		//
-		////////////////////////////////////////////////////////////////////
 
-		System::Media::SoundPlayer sndPlayer(".../Media/Audio/Music/John Williams - Forward to Time Past.wav");
+	 /**************************************************************
 
-		Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
+				NAME: timerClockShow_Tick
 
+				DESCRIPTION: Draws clock images on a 2 second delay.
 
-		////////////////////////////////////////////////////////////////////
-		
+	 **************************************************************/
 
-		sndPlayer.PlayLooping();
-		
-		pictureBoxCountdown->BringToFront();
-		clear(canvas);
-
-		timerClockShow->Enabled = true;
-
-		buttonExitClockShow->Visible = true;
-		buttonExitClockShow->BringToFront();
-
-
-
-	
-	
-	
-
-
-}
-private: System::Void buttonExitClockShow_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	////////////////////////////////////////////////////////////////////
-	//
-	//				DECLARE LOCAL VARIABLES/OBJECTS
-	//
-	////////////////////////////////////////////////////////////////////
-
-	Graphics^ canvas = pictureBoxCountdown->CreateGraphics();
-	System::Media::SoundPlayer sndPlayer("..//Media/Audio/Music/Red Like Roses (RWBY Music Box Version).wav");
-
-	////////////////////////////////////////////////////////////////////
-
-
-	timerClockShow->Enabled = false;
-
-	clear(canvas);
-	pictureBoxCountdown->SendToBack();
-	sndPlayer.PlayLooping();
-
-
-	buttonExitClockShow->Visible = false;
-}
-private: System::Void timerClockShow_Tick(System::Object^  sender, System::EventArgs^  e) 
+	private: System::Void timerClockShow_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
 	////////////////////////////////////////////////////////////////////
 	//
@@ -3204,6 +3522,23 @@ private: System::Void timerClockShow_Tick(System::Object^  sender, System::Event
 
 
 }
+
+	/**************************************************************
+
+			 NAME: timerDateTime_Tick
+
+			 DESCRIPTION: Displays current date and time in a label.
+
+	**************************************************************/
+
+	private: System::Void timerDateTime_Tick(System::Object^  sender, System::EventArgs^  e)
+				{
+
+					labelDateTime->Text = "The current date and time:\n" +
+						DateTime::Now.ToString();
+				}
+
+
 //private: System::Void labelWelcomeDescription_TextChanged(System::Object^  sender, System::EventArgs^  e) 
 //{
 //	int formLengthMidpoint = 1008/2;
@@ -3212,5 +3547,11 @@ private: System::Void timerClockShow_Tick(System::Object^  sender, System::Event
 //	labelWelcomeDescription->Location = System::Drawing::Point( formLengthMidpoint - labelLengthMidpoint, 71 );
 //}
 
+
+	 /*//////////////////////////////////////////////////////////////
+
+				 END EVENT DRIVEN DEFINED FUNCTIONS
+
+	 //////////////////////////////////////////////////////////////*/
 };
 }
