@@ -1438,17 +1438,17 @@ namespace Program_1 {
 
 			MessageBox::Show(
 
-				"1. Insert 0's to formated time without if statements 6\n"
+				"1. Insert 0's to formatted time without if statements 6\n"
 				"2. Display clock at beginning with current time\n"
 				"3. Take time data as hh:mm:ss\n"
 				"4. Compute how many minutes to the next hour\n"
-				"5. Play clock ticking sound or other approriate sound in background\n"
+				"5. Play clock ticking sound or other appropriate sound in background\n"
 				"6. Increase thickness of clock hands to stand out more\n"
 				"7. Add button for musical slide show of many clocks\n"
 				"8. Draw clock hands on clock image\n"
 				"9. Two clocks, one drawn, on from image\n"
 				"10. Add 1- 12 on drawn clock\n"
-				"11. Extra pizzaz draw minute markers with for loop accounting for Hour markers\n"
+				"11. Extra pizzazz draw minute markers with for loop accounting for Hour markers\n"
 				"12. Use DrawString to draw the time string\n"
 				"13. Advanced Feature: Used string array to cycle through images for slide show \n"
 				"14. Prompt user for hour minute and second and add second info in rest of program\n"
