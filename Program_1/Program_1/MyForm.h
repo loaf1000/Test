@@ -6,7 +6,7 @@ ID INFORMATION
 
 Programmers			:			Laithe Marshall
 Assignment #		:   		Program 1
-Assignment Name		:	    	GUI Quirky Programming
+Assignment Name		:	    	It's About Time
 Course # and Title	:	    	CISC 192 - C++
 Class Meeting Time	:	    	MW 9:35 - 12:45
 Instructor			:	    	Professor Forman
@@ -90,26 +90,61 @@ Remember the “triangle of learning”
 
 Thanks for assistance and inspiration from:
 
-Professor Forman, Cplusplus.com, Stackoverflow.com
-Learncpp.com, Christian 
+Thanks to Professor Forman for creating TDHOs.
+Thanks to Christian who helped come up with the formula to draw minute & hour ticks.
+Thanks to James for double checking my clock formula.
 
 Thanks for the opportunity to assist and inspire:
 
-NA
+Falmata
+James
+Larry
 
 ***************************************************************
 ***************************************************************
 
 MEDIA
 
-"Mystic Mountain" Hubble Space Telescope Image
-http://www.spacetelescope.org/static/archives/images/large/heic1007a.jpg
+Music
+
+Red Like Roses Music Box cover by ksmusicboxes
+https ://soundcloud.com/ksmusicboxes/from-shadows-rwby-music-box
+
+Forward to Time Past by John Willliams
+http ://thepiratebay.se/torrent/6508827/Harry_Potter_-_The_Ultimate_Soundtrack_Collection
+
+Sound Effects
 
 Rocket Blast Off
 http://www.youtube.com/watch?v=MmJ41X0B8xw
 
-Spaceship Image
-http://www.wallpaperup.com/uploads/wallpapers/2013/02/18/41732/b4aa40fc46eb69f8f601f74544c92b60.jpg
+Images
+
+Space Background
+http ://www.hdwallpapersos.com/wp-content/uploads/2014/07/Hd-Wallpapers-Space-51.jpg
+
+Handless Clock Image
+http ://www.clker.com/cliparts/c/V/M/7/B/A/clock-without-arms-md.png
+
+Clock Slideshow Clock Images
+
+Clock Tree
+http ://files.vladstudio.com/joy/treeofbooks/wcz/preview800x500.jpg
+
+Eye Clock
+http ://wallpaperswa.com/Art_Design/Monochrome/eyes_clocks_grayscale_monochrome_photomanipulations_2798x1894_wallpaper_32413/download_2798x1894
+
+Greyscale Clocks Roman Numerals
+http ://hdw.eweb4.com/wallpapers/6394/
+
+Astrological Clock
+http ://widewallpapers.info/wp-content/uploads/2014/08/clocks-prague-czech-republic-fresh-hd-wallpaper-Czech-Republic-HD-free-wallpapers-backgrounds-images-FHD-4k-download-2014-2015-2016.jpg
+
+Creepy Bird Clock
+http ://www.wallpaperup.com/uploads/wallpapers/2013/03/20/55072/aba405a4e79a0164e75ea6af54b88ce8.jpg
+
+Melting Clock
+http ://hd4desktop.com/images/b/1366x768_clocks-melt-Salvador-Dali-time-abstract-HD-Wallpaper.jpg
 
 ***************************************************************
 ***************************************************************
@@ -720,23 +755,35 @@ namespace Program_1 {
 
 		void calcTimeRemaining(int hour, int minute, int second)
 		{
-			if (hour == 23)
-			{
-				hour = -1;
-			}
+			////////////////////////////////////////////////////////////////////
+			//
+			//				DECLARE LOCAL VARIABLES/OBJECTS
+			//
+			////////////////////////////////////////////////////////////////////
 
+			TimeSpan originalTime = TimeSpan(0, hour, minute, second);
+			TimeSpan secondTime = TimeSpan(0, (hour + 1), 0, 0);
+			TimeSpan timeDifference = secondTime - originalTime;
+
+			int minutesTill, secondsTill;
+
+			////////////////////////////////////////////////////////////////////
+
+			 minutesTill = timeDifference.Minutes;
+			 secondsTill = timeDifference.Seconds;
+			 hour = secondTime.Hours;
 
 			if (second == 0)
 			{  // .ToString("D2") the D2 is a command that will treat the integer as a decimal that will have at least two digits.
 			   // if the integer value is only one digit .ToString("D2") will add a leading zero. 
-				labelWelcomeDescription->Text += "\nThat will be " + (60 - minute).ToString("D2") + " minutes until "
-					+ (hour + 1).ToString("D2") + " hour.";
+				labelWelcomeDescription->Text += "\nThat will be " + (minutesTill).ToString("D2") + " minutes until "
+					+ (hour).ToString("D2") + " hour.";
 			}
 
 			else
 			{
-				labelWelcomeDescription->Text += "\nThat will be " + (59 - minute).ToString("D2") + " minutes and "
-					+ (60 - second).ToString("D2") + " seconds until " + (hour + 1).ToString("D2") + " hour.";
+				labelWelcomeDescription->Text += "\nThat will be " + (minutesTill).ToString("D2") + " minutes and "
+					+ (secondsTill).ToString("D2") + " seconds until " + (hour).ToString("D2") + " hour.";
 			}
 		}
 
